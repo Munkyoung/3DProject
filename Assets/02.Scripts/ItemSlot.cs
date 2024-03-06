@@ -32,21 +32,32 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         startPositon = transform.position;
+        InventoryMgr.inst.OnDragItem = SlotItem;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        IconImage.transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.position = startPositon;
+        if (InventoryMgr.inst.IsDrop)
+        {
+            InventoryMgr.inst.IsDrop = false;
+            InventoryMgr.EquipItemList.Remove(SlotItem as EquipItem);
+            InventoryMgr.inst.Refreshslot();
+        }
+        else
+        {
+
+        }
+        IconImage.transform.position = startPositon;
     }
 
-    public void TestSetting(Item item = null)
+    public void SetSlot(Item item = null)
     {
-        
+
         if (item is EquipItem)
         {
             SlotItem = item as EquipItem;
@@ -59,6 +70,14 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         {
             SlotItem = item as OtherItem;
         }
+        else
+        {
+            SlotItem = null;
+        }
+        RefreshSlot();
+    }
+    public void RefreshSlot()
+    {
         if (SlotItem != null)
         {
             //빈 처리
@@ -71,35 +90,6 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
             CountText.text = string.Empty;
         }
     }
-
-   /* public void SetSlot(EquipItem equip = null, ConsumItem consum = null, OtherItem other = null, bool IsEmpty = false)
-    {
-        if (equip != null)
-        {
-            Debug.Log("장비 업데이트");
-            Slot_equip = equip;
-            Debug.Log("스프라이트" + Slot_equip.spriteName);
-            IconImage.sprite = Resources.Load<Sprite>(Slot_equip.spriteName);
-            CountText.text = Slot_equip.count.ToString();
-        }
-        else if (consum != null)
-        {
-            Slot_Consum = consum;
-            IconImage.sprite = Resources.Load<Sprite>(Slot_Consum.spriteName);
-            CountText.text = Slot_Consum.count.ToString();
-        }
-        else if (other != null)
-        {
-            Slot_Other = other;
-            IconImage.sprite = Resources.Load<Sprite>(Slot_Other.spriteName);
-            CountText.text = Slot_Other.count.ToString();
-        }
-        else if (IsEmpty == true)
-        {
-            IconImage.sprite = Resources.Load<Sprite>("Sprites/Item/Empty");
-            CountText.text = string.Empty;
-        }
-    }*/
 
     // Start is called before the first frame update
     void Start()

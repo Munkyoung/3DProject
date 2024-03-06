@@ -1327,6 +1327,7 @@ GameObject:
   - component: {fileID: 237927091}
   - component: {fileID: 237927093}
   - component: {fileID: 237927092}
+  - component: {fileID: 237927094}
   m_Layer: 5
   m_Name: Slot_Ring_Back
   m_TagString: Untagged
@@ -1393,6 +1394,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237927090}
   m_CullTransparentMesh: 1
+--- !u!114 &237927094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237927090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1934bb63bef5d4cb375dbd8502f30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipType: 3
+  SlotImage: {fileID: 188591410}
 --- !u!1 &239669332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,6 +2824,7 @@ GameObject:
   - component: {fileID: 413959974}
   - component: {fileID: 413959976}
   - component: {fileID: 413959975}
+  - component: {fileID: 413959977}
   m_Layer: 5
   m_Name: Slot_Armor_Back
   m_TagString: Untagged
@@ -2875,6 +2891,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413959973}
   m_CullTransparentMesh: 1
+--- !u!114 &413959977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413959973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1934bb63bef5d4cb375dbd8502f30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipType: 1
+  SlotImage: {fileID: 593264062}
 --- !u!1001 &424365435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6090,6 +6120,7 @@ GameObject:
   - component: {fileID: 1085556530}
   - component: {fileID: 1085556532}
   - component: {fileID: 1085556531}
+  - component: {fileID: 1085556533}
   m_Layer: 5
   m_Name: Slot_Boot_Back
   m_TagString: Untagged
@@ -6156,6 +6187,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085556529}
   m_CullTransparentMesh: 1
+--- !u!114 &1085556533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085556529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1934bb63bef5d4cb375dbd8502f30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipType: 2
+  SlotImage: {fileID: 218565913}
 --- !u!1 &1091862260
 GameObject:
   m_ObjectHideFlags: 0
@@ -8405,6 +8450,7 @@ GameObject:
   - component: {fileID: 1484180178}
   - component: {fileID: 1484180180}
   - component: {fileID: 1484180179}
+  - component: {fileID: 1484180181}
   m_Layer: 5
   m_Name: Slot_Helmet_Back
   m_TagString: Untagged
@@ -8471,6 +8517,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484180177}
   m_CullTransparentMesh: 1
+--- !u!114 &1484180181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484180177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1934bb63bef5d4cb375dbd8502f30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipType: 0
+  SlotImage: {fileID: 595492162}
 --- !u!1 &1490472349
 GameObject:
   m_ObjectHideFlags: 0
@@ -9341,6 +9401,7 @@ GameObject:
   - component: {fileID: 1639530440}
   - component: {fileID: 1639530442}
   - component: {fileID: 1639530441}
+  - component: {fileID: 1639530443}
   m_Layer: 5
   m_Name: Slot_Sword_Back
   m_TagString: Untagged
@@ -9407,6 +9468,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639530439}
   m_CullTransparentMesh: 1
+--- !u!114 &1639530443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639530439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1934bb63bef5d4cb375dbd8502f30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipType: 5
+  SlotImage: {fileID: 1294433109}
 --- !u!1 &1660735609
 GameObject:
   m_ObjectHideFlags: 0
@@ -10686,18 +10761,12 @@ MonoBehaviour:
   HpText: {fileID: 1182881124}
   AttText: {fileID: 973193388}
   DefText: {fileID: 2089780495}
-  PlayerEquip:
-  - {fileID: 1484180177}
-  - {fileID: 413959973}
-  - {fileID: 1085556529}
-  - {fileID: 237927090}
-  - {fileID: 2076542814}
-  - {fileID: 1639530439}
   InventoryPanel: {fileID: 676075797}
   TabType: 0
   EquipmentTab: {fileID: 1306455150}
   ConsumTab: {fileID: 899622887}
   OtherTab: {fileID: 2071825320}
+  IsDrop: 0
 --- !u!1 &1997055344
 GameObject:
   m_ObjectHideFlags: 0
@@ -11138,6 +11207,7 @@ GameObject:
   - component: {fileID: 2076542815}
   - component: {fileID: 2076542817}
   - component: {fileID: 2076542816}
+  - component: {fileID: 2076542818}
   m_Layer: 5
   m_Name: Slot_Glove_Back
   m_TagString: Untagged
@@ -11204,6 +11274,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076542814}
   m_CullTransparentMesh: 1
+--- !u!114 &2076542818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076542814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1934bb63bef5d4cb375dbd8502f30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipType: 4
+  SlotImage: {fileID: 2146251918}
 --- !u!1 &2089780493
 GameObject:
   m_ObjectHideFlags: 0

@@ -134,6 +134,12 @@ public class EquipItem : Item
     int Def;
     EquipType Type;
 
+    public int lv { get => Lv; set => Lv = value; }
+    public int grade { get => Grade; set => Grade = value; }
+    public int att { get => Att; set => Att = value; }
+    public int def { get => Def; set => Def = value; }
+    public EquipType type { get => Type; set => Type = value; }
+
     public EquipItem()
     {
         Lv = 0;

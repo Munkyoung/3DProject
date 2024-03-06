@@ -21,7 +21,7 @@ public class InventoryMgr : MonoBehaviour
 
 
     //인벤토리에 아이템 최댓값
-    public const int MaxItemCount = 28;
+    public const int MaxInventoryCount = 28;
     public const int PlayerEquipment = 6;
 
 
@@ -36,10 +36,8 @@ public class InventoryMgr : MonoBehaviour
     public Text DefText;
 
     //status창의 장비 슬롯
-    public static GameObject[] PlayerEquip = new GameObject[PlayerEquipment];
-
-
-
+    public GameObject[] PlayerEquip = new GameObject[PlayerEquipment];//
+    public static EquipItem[] equipItems; //플레이어 장비 스태틱
 
 
     //------------Status----------------//
@@ -52,8 +50,8 @@ public class InventoryMgr : MonoBehaviour
     [Header("------------Inventory------------")]
     public GameObject InventoryPanel;
     //노드에 담길 equipment배열
-    ItemSlot[] ItemSlots = new ItemSlot[MaxItemCount];
-    Item[] ItemArr = new Item[MaxItemCount];
+    ItemSlot[] ItemSlots = new ItemSlot[MaxInventoryCount];
+    Item[] ItemArr = new Item[MaxInventoryCount];
 
     //Player가 가지고 있는 아이템 리스트
     public static List<EquipItem> EquipItemList = new List<EquipItem>();
@@ -71,9 +69,12 @@ public class InventoryMgr : MonoBehaviour
     public Button EquipmentTab;
     public Button ConsumTab;
     public Button OtherTab;
+    //------------TabType-------------//
 
-
-
+    //DragDrop
+    public bool IsDrop = false;
+    public Item OnDragItem = null;
+    int TestInt = 0;
     //싱글톤
     public static InventoryMgr inst = null;
 
@@ -120,7 +121,11 @@ public class InventoryMgr : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            EquipItemList.Add(new EquipItem());
+            EquipItem Testequip = new EquipItem();
+            Testequip.count = TestInt;
+            Testequip.type = EquipItem.EquipType.Helmet;
+            TestInt++;
+            EquipItemList.Add(Testequip);
             Refreshslot();
         }
         if (Input.GetKeyDown(KeyCode.W))
@@ -140,9 +145,9 @@ public class InventoryMgr : MonoBehaviour
 
     //슬롯에 아이템 넣기
     //아이템 배열에 
-    void Refreshslot()
+    public void Refreshslot()
     {
-        for (int i = 0; i < MaxItemCount; i++)
+        for (int i = 0; i < MaxInventoryCount; i++)
         {
             ItemArr[i] = null;
         }
@@ -169,51 +174,14 @@ public class InventoryMgr : MonoBehaviour
         }
         for (int i = 0; i < ItemSlots.Length; i++)
         {
-            ItemSlots[i].TestSetting(ItemArr[i]);
+            ItemSlots[i].SetSlot(ItemArr[i]);
         }
-
     }
 
-    /*   void Refreshslot()
-       {
-           //Debug.Log("슬롯 갯수 : " + ItemSlots.Length);
-
-           int endNum = 0;
-           if (TabType == InventoryTabType.equipment)
-           {
-               for (int i = 0; i < EquipItemList.Count; i++)
-               {
-                   ItemSlots[i].SetSlot(EquipItemList[i]);
-               }
-               endNum = EquipItemList.Count;
-           }
-
-           else if (TabType == InventoryTabType.consumable)
-           {
-               for (int i = 0; i < ConsumItemList.Count; i++)
-               {
-                   ItemSlots[i].SetSlot(null, ConsumItemList[i]);
-               }
-               endNum = ConsumItemList.Count;
-           }
-
-           else if (TabType == InventoryTabType.Other)
-           {
-               for (int i = 0; i < OtheritemList.Count; i++)
-               {
-                   ItemSlots[i].SetSlot(null, null, OtheritemList[i]);
-               }
-               endNum = OtheritemList.Count;
-           }
-           //빈 아이템 슬롯 설정
-           if (endNum < ItemSlots.Length)
-           {
-               for (int i = endNum; i < ItemSlots.Length; i++)
-               {
-                   ItemSlots[i].SetSlot(null, null, null, true);
-               }
-           }
-       }*/
+    public bool WearEquip()
+    {
+        return false;
+    }
 
 
 }
