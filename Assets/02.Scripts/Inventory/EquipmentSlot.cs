@@ -11,7 +11,7 @@ public class EquipmentSlot : MonoBehaviour ,IDropHandler
     [SerializeField] EquipItem.EquipType equipType;
 
     public Image SlotImage;
-
+     
     public void OnDrop(PointerEventData eventData)
     {
         if (InventoryMgr.inst.OnDragItem is EquipItem)

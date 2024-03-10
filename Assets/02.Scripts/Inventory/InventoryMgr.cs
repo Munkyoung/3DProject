@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,8 +20,8 @@ public class InventoryMgr : MonoBehaviour
 
 
     //인벤토리에 아이템 최댓값
-    public const int MaxInventoryCount = 28;
-    public const int PlayerEquipment = 6;
+    public const int MAX_INVENTROY_SIZE = 28;
+    public const int PLAYER_EQUIPMENT = 6;
 
 
     //------------Status----------------//
@@ -36,7 +35,7 @@ public class InventoryMgr : MonoBehaviour
     public Text DefText;
 
     //status창의 장비 슬롯
-    public GameObject[] PlayerEquip = new GameObject[PlayerEquipment];//
+    public GameObject[] PlayerEquip = new GameObject[PLAYER_EQUIPMENT];//
     public static EquipItem[] equipItems; //플레이어 장비 스태틱
 
 
@@ -50,8 +49,8 @@ public class InventoryMgr : MonoBehaviour
     [Header("------------Inventory------------")]
     public GameObject InventoryPanel;
     //노드에 담길 equipment배열
-    ItemSlot[] ItemSlots = new ItemSlot[MaxInventoryCount];
-    Item[] ItemArr = new Item[MaxInventoryCount];
+    ItemSlot[] ItemSlots = new ItemSlot[MAX_INVENTROY_SIZE];
+    Item[] ItemArr = new Item[MAX_INVENTROY_SIZE];
 
     //Player가 가지고 있는 아이템 리스트
     public static List<EquipItem> EquipItemList = new List<EquipItem>();
@@ -75,6 +74,9 @@ public class InventoryMgr : MonoBehaviour
     public bool IsDrop = false;
     public Item OnDragItem = null;
     int TestInt = 0;
+
+
+
     //싱글톤
     public static InventoryMgr inst = null;
 
@@ -147,7 +149,11 @@ public class InventoryMgr : MonoBehaviour
     //아이템 배열에 
     public void Refreshslot()
     {
-        for (int i = 0; i < MaxInventoryCount; i++)
+
+        string a = "123";
+        string[] b = a.Split(" ");
+        
+        for (int i = 0; i < MAX_INVENTROY_SIZE; i++)
         {
             ItemArr[i] = null;
         }
@@ -176,6 +182,11 @@ public class InventoryMgr : MonoBehaviour
         {
             ItemSlots[i].SetSlot(ItemArr[i]);
         }
+
+
+
+
+
     }
 
     public bool WearEquip()
