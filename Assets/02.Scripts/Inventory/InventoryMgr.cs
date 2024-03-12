@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
 public enum InventoryTabType
 {
     equipment,
@@ -20,8 +23,8 @@ public class InventoryMgr : MonoBehaviour
 
 
     //인벤토리에 아이템 최댓값
-    public const int MAX_INVENTROY_SIZE = 28;
-    public const int PLAYER_EQUIPMENT = 6;
+    public const int MaxInventoryCount = 28;
+    public const int PlayerEquipment = 6;
 
 
     //------------Status----------------//
@@ -35,7 +38,7 @@ public class InventoryMgr : MonoBehaviour
     public Text DefText;
 
     //status창의 장비 슬롯
-    public GameObject[] PlayerEquip = new GameObject[PLAYER_EQUIPMENT];//
+    public GameObject[] PlayerEquip = new GameObject[PlayerEquipment];//
     public static EquipItem[] equipItems; //플레이어 장비 스태틱
 
 
@@ -49,8 +52,8 @@ public class InventoryMgr : MonoBehaviour
     [Header("------------Inventory------------")]
     public GameObject InventoryPanel;
     //노드에 담길 equipment배열
-    ItemSlot[] ItemSlots = new ItemSlot[MAX_INVENTROY_SIZE];
-    Item[] ItemArr = new Item[MAX_INVENTROY_SIZE];
+    ItemSlot[] ItemSlots = new ItemSlot[MaxInventoryCount];
+    Item[] ItemArr = new Item[MaxInventoryCount];
 
     //Player가 가지고 있는 아이템 리스트
     public static List<EquipItem> EquipItemList = new List<EquipItem>();
@@ -74,11 +77,9 @@ public class InventoryMgr : MonoBehaviour
     public bool IsDrop = false;
     public Item OnDragItem = null;
     int TestInt = 0;
-
-
-
     //싱글톤
     public static InventoryMgr inst = null;
+
 
 
     private void Awake()
@@ -91,8 +92,6 @@ public class InventoryMgr : MonoBehaviour
     void Start()
     {
         ItemSlots = this.GetComponentsInChildren<ItemSlot>();
-
-
         //TabButton 처리
         if (EquipmentTab != null)
             EquipmentTab.onClick.AddListener(() =>
@@ -121,6 +120,7 @@ public class InventoryMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //------테스트용-------
         if (Input.GetKeyDown(KeyCode.Q))
         {
             EquipItem Testequip = new EquipItem();
@@ -136,6 +136,8 @@ public class InventoryMgr : MonoBehaviour
             Debug.Log("아이템 이름 = " + ConsumItemList[0].itemName);
             StartCoroutine(ConsumItemList[0].ItemCool());
         }
+
+        //------테스트용-------
     }
 
     public void WearEquip(EquipItem equip)
@@ -149,11 +151,7 @@ public class InventoryMgr : MonoBehaviour
     //아이템 배열에 
     public void Refreshslot()
     {
-
-        string a = "123";
-        string[] b = a.Split(" ");
-        
-        for (int i = 0; i < MAX_INVENTROY_SIZE; i++)
+        for (int i = 0; i < MaxInventoryCount; i++)
         {
             ItemArr[i] = null;
         }
@@ -182,11 +180,6 @@ public class InventoryMgr : MonoBehaviour
         {
             ItemSlots[i].SetSlot(ItemArr[i]);
         }
-
-
-
-
-
     }
 
     public bool WearEquip()

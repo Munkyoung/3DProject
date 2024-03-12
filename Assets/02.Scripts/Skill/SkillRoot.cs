@@ -1,47 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class SkillNode
 {
     // Skill형 대신 string
-    public string SkillName { get; set; }
-    public int skillPoint { get; set; } = 0;
-    public List<SkillNode> child { get; set; } = new List<SkillNode>();
+    public Skill skill;
+    public List<SkillNode> child;
 
-    // 이름 포인트
+    public SkillNode(Skill skill)
+    {
+        this.skill = skill;
+        child = new List<SkillNode>();
+    }
 }
 
 class RootSkill
 {
+    int index = 0;
+    List<Skill> list = new List<Skill>();
+    public void Treeee(List<string> skname, List<int> skPoint)
+    {
+    }
     public static SkillNode TestMakeRoot()
     {
-        SkillNode TestRoot = new SkillNode() { SkillName = "A" };
+        SkillNode TestRoot = new SkillNode(new PassiveSkill_HpUp());
         {
             {
-                SkillNode node = new SkillNode() { SkillName = "A-A" };
-                node.child.Add(new SkillNode() { SkillName = "A-A-A" });
-                node.child.Add(new SkillNode() { SkillName = "A-A-B" });
-                node.child.Add(new SkillNode() { SkillName = "A-A-C" });
+                SkillNode node = new SkillNode(new PassiveSkill_PowerUp());
+                node.child.Add(new SkillNode(new ActiveSkill_Swing()));
                 TestRoot.child.Add(node);
             }
 
             {
-                SkillNode node = new SkillNode() { SkillName = "A-B" };
-                node.child.Add(new SkillNode() { SkillName = "A-B-A" });
-                node.child.Add(new SkillNode() { SkillName = "A-B-B" });
-                node.child.Add(new SkillNode() { SkillName = "A-B-C" });
+                SkillNode node = new SkillNode(new PassiveSkill_DefUp());
+                node.child.Add(new SkillNode(new ActiveSkill_Heal()));
                 TestRoot.child.Add(node);
             }
 
             {
-                SkillNode node = new SkillNode() { SkillName = "A-C" };
-                node.child.Add(new SkillNode() { SkillName = "A-C-A" });
-                node.child.Add(new SkillNode() { SkillName = "A-C-B" });
-                node.child.Add(new SkillNode() { SkillName = "A-C-C" });
+                SkillNode node = new SkillNode(new PassiveSkill_SpeedUp());
+                node.child.Add(new SkillNode(new ActiveSkill_Rush()));
                 TestRoot.child.Add(node);
             }
+
         }
         return TestRoot;
     }
@@ -49,7 +53,7 @@ class RootSkill
 
     public static void PrintData(SkillNode root)
     {
-        Debug.Log(root.SkillName + " = " + root.skillPoint);
+        Debug.Log(root.skill.skillName + " : " + root.skill.skillInfo);
         foreach (SkillNode node in root.child)
         {
             PrintData(node);
@@ -57,22 +61,22 @@ class RootSkill
     }
 
 
-    public static void SkillPointUpDown(SkillNode root, string skillname, int value)
+    public static void SkillPointUpDown(SkillNode root, Skill skill, int value)
     {
-        if (root.SkillName == skillname)
+        if (root.skill.skillName == skill.skillName)
         {
-            root.skillPoint += 1 * value;
-            Debug.Log(root.SkillName);
-            Debug.Log(root.skillPoint);
+            root.skill.skillPoint += 1 * value;
+            Debug.Log(root.skill.skillName);
+            Debug.Log(root.skill.skillPoint);
             return;
         }
         else
         {
-            if (0 < root.skillPoint)
+            if (0 < root.skill.skillPoint)
             {
                 foreach (SkillNode node in root.child)
                 {
-                    SkillPointUpDown(node, skillname, value);
+                    SkillPointUpDown(node, skill, value);
                 }
             }
             else
@@ -81,6 +85,7 @@ class RootSkill
             }
         }
     }
+
     public static void LoadSkillData(SkillNode root)
     {
 
