@@ -60,32 +60,6 @@ class RootSkill
         }
     }
 
-
-    public static void SkillPointUpDown(SkillNode root, Skill skill, int value)
-    {
-        if (root.skill.skillName == skill.skillName)
-        {
-            root.skill.skillPoint += 1 * value;
-            Debug.Log(root.skill.skillName);
-            Debug.Log(root.skill.skillPoint);
-            return;
-        }
-        else
-        {
-            if (0 < root.skill.skillPoint)
-            {
-                foreach (SkillNode node in root.child)
-                {
-                    SkillPointUpDown(node, skill, value);
-                }
-            }
-            else
-            {
-                Debug.Log("root Point ºÎÁ·");
-            }
-        }
-    }
-
     public static void LoadSkillData(SkillNode root)
     {
 
