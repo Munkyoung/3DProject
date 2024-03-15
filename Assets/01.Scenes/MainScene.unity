@@ -158,7 +158,6 @@ RectTransform:
   - {fileID: 1973170029}
   - {fileID: 323366437}
   - {fileID: 190178640}
-  - {fileID: 1915231716}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1405,7 +1404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &190178640
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2933,7 +2932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &323366437
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7141,6 +7140,14 @@ PrefabInstance:
     - target: {fileID: 2600713196200299984, guid: ee1bf182441a8b14eb15583004db4c4f, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822756691061106226, guid: ee1bf182441a8b14eb15583004db4c4f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822756691061106226, guid: ee1bf182441a8b14eb15583004db4c4f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.065
       objectReference: {fileID: 0}
     - target: {fileID: 3412680081477261162, guid: ee1bf182441a8b14eb15583004db4c4f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15124,6 +15131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1915231716}
   - component: {fileID: 1915231717}
+  - component: {fileID: 1915231718}
   m_Layer: 0
   m_Name: GameMgr
   m_TagString: Untagged
@@ -15140,11 +15148,11 @@ Transform:
   m_GameObject: {fileID: 1915231715}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 10223277}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1915231717
 MonoBehaviour:
@@ -15161,6 +15169,22 @@ MonoBehaviour:
   MiniMap: {fileID: 174915344}
   Inventory: {fileID: 1973170028}
   SkillTree: {fileID: 323366436}
+--- !u!114 &1915231718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915231715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd04f4b9b2ea7c45bd5837eb3bbfff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  A: {fileID: 11400000, guid: cb3be6cc706c1dd48aefc5ae520a0854, type: 2}
+  B: {fileID: 11400000, guid: d08e5beea93141a49b6454cf48158c87, type: 2}
+  C: {fileID: 11400000, guid: ce1931da2c7c7004b907ecb45c5b67ba, type: 2}
+  D: {fileID: 11400000, guid: f4899ec3ab92e904b840fba218c59d8f, type: 2}
 --- !u!1 &1931968139
 GameObject:
   m_ObjectHideFlags: 0
@@ -16975,6 +16999,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
+  - {fileID: 1915231716}
   - {fileID: 900944179}
   - {fileID: 424365435}
   - {fileID: 759669771}
