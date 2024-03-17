@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d09626c7a22c44e9a491dd3e17e502, type: 3}
   m_Name: Coin500
   m_EditorClassIdentifier: 
-  ItemName: 
-  SpriteName: 
-  Price: 0
-  Desc: 
-  Prefab: {fileID: 0}
-  Count: 0
-  MaxCount: 0
+  ItemName: "500\uACE8\uB4DC"
+  SpriteName: Sprites/Item/EtcItem/500gold
+  Price: 500
+  Desc: "500\uC6D0"
+  Prefab: {fileID: 7244328284609020742, guid: b667aba89e2fdde439de01cfe79574e3, type: 3}
+  Count: 1
+  MaxCount: 1

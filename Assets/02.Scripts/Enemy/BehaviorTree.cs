@@ -46,68 +46,125 @@ public class ActionNode : Node
         return action();
     }
 }
-public class IsNearPlayer : Node
+public class CheckNearbyTarget : Node
 {
-    Transform transform;
-    Transform PlayerTr;
+    GameObject Subject;
+    GameObject Target;
+
     float dist;
-    Animator anim;
+    Animator animator;
 
-
-    public IsNearPlayer(Transform transform, Transform playerTr)
+    public CheckNearbyTarget(GameObject subject, GameObject target, Animator Anim)
     {
-        this.transform = transform;
-        PlayerTr = playerTr;
-        dist = (transform.position - playerTr.position).magnitude;
-        this.anim = this.transform.GetComponent<Animator>();
+        Subject = subject;
+        Target = target;
+        this.animator = Anim;
     }
-
     public override NodeState Evaluate()
     {
+        dist = (Subject.transform.position - Target.transform.position).magnitude;
         //추적 범위
         if (dist < 5.0f)
             return NodeState.Success;
         else
+        {
+            animator.SetBool("IsTrace", false);
             return NodeState.Failure;
+        }
     }
 }
 public class TraceAction : Node
 {
-    Transform transform;
-    Transform PlayerTr;
+    GameObject Subject;
+    GameObject Target;
     float dist;
-    Animator anim;
+    Animator Animator;
 
-
-    public TraceAction(Transform transform, Transform playerTr)
+    public TraceAction(GameObject subject, GameObject target, Animator anim)
     {
-        this.transform = transform;
-        PlayerTr = playerTr;
-        dist = (transform.position - playerTr.position).magnitude;
-        this.anim = this.transform.GetComponent<Animator>();
+        Subject = subject;
+        Target = target;
+        this.Animator = anim;
     }
 
     public override NodeState Evaluate()
     {
-        this.transform.LookAt(PlayerTr);
-        this.transform.position = Vector3.Lerp(transform.position, PlayerTr.position, Time.deltaTime);
-
+        Debug.Log("Treacing");
+        Animator.SetBool("IsTrace", true);
+        Subject.transform.LookAt(Target.transform);
+        Subject.transform.position = Vector3.Lerp(Subject.transform.position, Target.transform.position, Time.deltaTime);
         return NodeState.Running;
     }
 }
+public class CheckInAttackRange : Node
+{
+    GameObject Subject;
+    GameObject Target;
+    Animator Animator;
+    float AttRange = 1.5f;
+    float dist;
+    public CheckInAttackRange(GameObject subject, GameObject target, Animator anim)
+    {
+        Subject = subject;
+        Target = target;
+        Animator = anim;
+    }
 
+    public override NodeState Evaluate()
+    {
+        dist = (Subject.transform.position - Target.transform.position).magnitude;
+
+        if (dist < AttRange)
+            return NodeState.Success;
+        else
+        {
+            Animator.SetBool("Attack", false);
+            return NodeState.Failure;
+        }
+        
+    }
+}
 public class AttackAction : Node
 {
-    Animator anim;
-
-
+    Animator Anim;
+  
+    public AttackAction(Animator anim)
+    {
+        Anim = anim;
+    }
     public override NodeState Evaluate()
     {
-
+        Debug.Log("Attack");
+        Anim.SetBool("Attack", true);
+        
         return NodeState.Running;
     }
 }
+public class CheckDie : Node
+{
+    GameObject Subject;
+    Animator animator;
+    public CheckDie(GameObject subject, Animator anim)
+    {
+        Subject = subject;
+        animator = anim;
+    }
 
+    public override NodeState Evaluate()
+    {
+        if (Subject.GetComponent<Enemy>().hp < 0.0f)
+        {
+            animator.SetTrigger("Die");
+            return NodeState.Success;
+        }
+        else
+            return NodeState.Failure;
+    }
+}
+public class DieAction
+{
+
+}
 
 //SequenceNode
 //AND 역할 자식의 모든 노드가 True(Success or Running을 리턴해야) True 리턴
@@ -120,7 +177,9 @@ public class Sequence : Node
         {
             NodeState result = node.Evaluate();
             if (result == NodeState.Failure)
+            {
                 return result;
+            }
             else if (result == NodeState.Running)
                 isChildRunning = true;
         }
@@ -151,12 +210,5 @@ public class Selector : Node
     }
 }
 
-public class Decorate : Node
-{
-    public override NodeState Evaluate()
-    {
-        return base.Evaluate();
-    }
 
-}
 

@@ -20,13 +20,14 @@ public interface Wearalbe
 
 public class InventoryMgr : MonoBehaviour
 {
-
-
     //인벤토리에 아이템 최댓값
     public const int MaxInventoryCount = 28;
     public const int PlayerEquipment = 6;
 
 
+
+
+    //==================================//
     //------------Status----------------//
     [Header("------------Status------------")]
     public GameObject StatusPanel;
@@ -40,14 +41,14 @@ public class InventoryMgr : MonoBehaviour
     //status창의 장비 슬롯
     public GameObject[] PlayerEquip = new GameObject[PlayerEquipment];//
     public static EquipItem[] equipItems; //플레이어 장비 스태틱
-
-
     //------------Status----------------//
+    //==================================//
 
 
 
 
 
+    //==================================//
     //------------Inventory-------------//
     [Header("------------Inventory------------")]
     public GameObject InventoryPanel;
@@ -60,11 +61,16 @@ public class InventoryMgr : MonoBehaviour
     public static List<ConsumItem> ConsumItemList = new List<ConsumItem>();
     public static List<OtherItem> OtheritemList = new List<OtherItem>();
 
-
-
-
     //------------Inventory-------------//
+    //==================================//
 
+
+
+
+
+
+
+    //==================================//
     //------------TabType-------------//
     [Header("------------TabButton------------")]
     public InventoryTabType TabType = InventoryTabType.equipment;
@@ -72,6 +78,7 @@ public class InventoryMgr : MonoBehaviour
     public Button ConsumTab;
     public Button OtherTab;
     //------------TabType-------------//
+    //==================================//
 
     //DragDrop
     public bool IsDrop = false;
