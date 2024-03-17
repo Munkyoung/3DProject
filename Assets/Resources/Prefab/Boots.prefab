@@ -352,7 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 700659502571333670}
-  - component: {fileID: 6226950983114650344}
+  - component: {fileID: 6428100152686898689}
   m_Layer: 10
   m_Name: Boots
   m_TagString: Untagged
@@ -377,7 +377,7 @@ Transform:
   - {fileID: 4465368501538311388}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6226950983114650344
+--- !u!135 &6428100152686898689
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -392,7 +392,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

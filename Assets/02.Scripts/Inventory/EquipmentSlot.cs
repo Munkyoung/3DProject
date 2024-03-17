@@ -4,31 +4,32 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EquipmentSlot : MonoBehaviour ,IDropHandler
+public class EquipmentSlot : MonoBehaviour, IDropHandler
 {
-    public EquipItem equipItem;
-    public EquipItem dragItem;
+    public SOEquipment equipItem;
+    public SOEquipment dragItem;
     [SerializeField] EquipItem.EquipType equipType;
 
     public Image SlotImage;
-     
+
     public void OnDrop(PointerEventData eventData)
     {
-        if (InventoryMgr.inst.OnDragItem is EquipItem)
+        if (InventoryMgr.inst.OnDragItem is SOEquipment)
         {
-            dragItem = InventoryMgr.inst.OnDragItem as EquipItem;
-            if (dragItem.type == equipType)
+           /* dragItem = InventoryMgr.inst.OnDragItem as SOEquipment;
+            InventoryMgr.inst.IsDrop = true;
+            equipItem = dragItem;
+            SlotImage.sprite = Resources.Load<Sprite>(equipItem.spriteName);
+            if ()
             {
-                InventoryMgr.inst.IsDrop = true;
-                equipItem = dragItem;
-                SlotImage.sprite = Resources.Load<Sprite>(equipItem.spriteName);
+
             }
             else
             {
                 //장비 타입이 다를때
                 InventoryMgr.inst.IsDrop = false;
                 return;
-            }
+            }*/
         }
         else
         {

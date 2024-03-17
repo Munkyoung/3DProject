@@ -40,7 +40,7 @@ public class InventoryMgr : MonoBehaviour
 
     //status창의 장비 슬롯
     public GameObject[] PlayerEquip = new GameObject[PlayerEquipment];//
-    public static EquipItem[] equipItems; //플레이어 장비 스태틱
+    public static SOEquipment[] equipItems; //플레이어 장비 스태틱
     //------------Status----------------//
     //==================================//
 
@@ -54,12 +54,8 @@ public class InventoryMgr : MonoBehaviour
     public GameObject InventoryPanel;
     //노드에 담길 equipment배열
     ItemSlot[] ItemSlots = new ItemSlot[MaxInventoryCount];
-    Item[] ItemArr = new Item[MaxInventoryCount];
+    SOItem[] ItemArr = new SOItem[MaxInventoryCount];
 
-    //Player가 가지고 있는 아이템 리스트
-    public static List<EquipItem> EquipItemList = new List<EquipItem>();
-    public static List<ConsumItem> ConsumItemList = new List<ConsumItem>();
-    public static List<OtherItem> OtheritemList = new List<OtherItem>();
 
     //------------Inventory-------------//
     //==================================//
@@ -82,7 +78,7 @@ public class InventoryMgr : MonoBehaviour
 
     //DragDrop
     public bool IsDrop = false;
-    public Item OnDragItem = null;
+    public SOItem OnDragItem = null;
     int TestInt = 0;
     //싱글톤
     public static InventoryMgr inst = null;
@@ -127,22 +123,22 @@ public class InventoryMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //------테스트용-------
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            EquipItem Testequip = new EquipItem();
-            Testequip.count = TestInt;
-            Testequip.type = EquipItem.EquipType.Helmet;
-            TestInt++;
-            EquipItemList.Add(Testequip);
-            Refreshslot();
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            ConsumItemList.Add(new ConsumItem(5.0f));
-            Debug.Log("아이템 이름 = " + ConsumItemList[0].itemName);
-            StartCoroutine(ConsumItemList[0].ItemCool());
-        }
+        /*        //------테스트용-------
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    SOeq Testequip = new EquipItem();
+                    Testequip.count = TestInt;
+                    Testequip.type = EquipItem.EquipType.Helmet;
+                    TestInt++;
+                    EquipItemList.Add(Testequip);
+                    Refreshslot();
+                }
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    ConsumItemList.Add(new ConsumItem(5.0f));
+                    Debug.Log("아이템 이름 = " + ConsumItemList[0].itemName);
+                    StartCoroutine(ConsumItemList[0].ItemCool());
+                }*/
 
         //------테스트용-------
     }
@@ -164,23 +160,23 @@ public class InventoryMgr : MonoBehaviour
         }
         if (TabType == InventoryTabType.equipment)
         {
-            for (int i = 0; i < EquipItemList.Count; i++)
+            for (int i = 0; i < GlobalValue.g_EquipItemList.Count; i++)
             {
-                ItemArr[i] = EquipItemList[i];
+                ItemArr[i] = GlobalValue.g_EquipItemList[i];
             }
         }
         else if (TabType == InventoryTabType.consumable)
         {
-            for (int i = 0; i < ConsumItemList.Count; i++)
+            for (int i = 0; i < GlobalValue.g_ConsumItemList.Count; i++)
             {
-                ItemArr[i] = ConsumItemList[i];
+                ItemArr[i] = GlobalValue.g_ConsumItemList[i];
             }
         }
         else if (TabType == InventoryTabType.Other)
         {
-            for (int i = 0; i < OtheritemList.Count; i++)
+            for (int i = 0; i < GlobalValue.g_EtcItemList.Count; i++)
             {
-                ItemArr[i] = OtheritemList[i];
+                ItemArr[i] = GlobalValue.g_EtcItemList[i];
             }
         }
         for (int i = 0; i < ItemSlots.Length; i++)

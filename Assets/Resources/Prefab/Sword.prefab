@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1153755707035525554}
   - component: {fileID: 8167057308432695627}
   - component: {fileID: 7409341379490745059}
+  - component: {fileID: -4686080420651182401}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -99,3 +100,24 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!135 &-4686080420651182401
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283578059548365515}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.39996508
+  m_Center: {x: 0, y: -0.01679941, z: -0.18238154}

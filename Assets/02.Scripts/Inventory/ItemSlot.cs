@@ -10,13 +10,13 @@ using UnityEngine.UI;
 public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, Wearalbe
 {
     //아이템 이미지
-    EquipItem Slot_equip;
-    OtherItem Slot_Other;
-    ConsumItem Slot_Consum;
+    SOEquipment Slot_equip;
+    SOEtc Slot_Other;
+    SOConsum Slot_Consum;
 
     public Image IconImage;
     public Text CountText;
-    Item SlotItem;
+    SOItem SlotItem;
 
     //-------------drop------------//
     Vector3 startPositon = Vector3.zero;
@@ -45,7 +45,7 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         if (InventoryMgr.inst.IsDrop)
         {
             InventoryMgr.inst.IsDrop = false;
-            InventoryMgr.EquipItemList.Remove(SlotItem as EquipItem);
+            InventoryMgr.EquipItemList.Remove(SlotItem as SOEquipment);
             InventoryMgr.inst.Refreshslot();
         }
         else
@@ -55,20 +55,20 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         IconImage.transform.position = startPositon;
     }
 
-    public void SetSlot(Item item = null)
+    public void SetSlot(SOItem item = null)
     {
 
         if (item is EquipItem)
         {
-            SlotItem = item as EquipItem;
+            SlotItem = item as SOEquipment;
         }
         else if (item is ConsumItem)
         {
-            SlotItem = item as ConsumItem;
+            SlotItem = item as SOConsum;
         }
         else if (item is OtherItem)
         {
-            SlotItem = item as OtherItem;
+            SlotItem = item as SOEtc;
         }
         else
         {
