@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour
         float randz = Random.Range(-1, 1);
         Vector3 DropPositon = new Vector3(transform.position.x - randx, transform.position.y, transform.position.z + randz);
         GameObject dropitem = Instantiate(DropItem.Prefab, DropPositon, Quaternion.identity) as GameObject;
+        dropitem.GetComponent<ItemCtrl>().item = DropItem;
         Destroy(dropitem, 10.0f);
         Destroy(this.gameObject, 5.0f);
     }

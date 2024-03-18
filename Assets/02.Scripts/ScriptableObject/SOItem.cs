@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public abstract class SOItem : ScriptableObject
 {
+    [Header("------INFO------")]
     [SerializeField]
     string ItemName;
     [SerializeField]
@@ -10,6 +11,7 @@ public abstract class SOItem : ScriptableObject
     [SerializeField]
     int Price;
     [SerializeField]
+    [Multiline]
     string Desc;
     [SerializeField]
     public GameObject Prefab;

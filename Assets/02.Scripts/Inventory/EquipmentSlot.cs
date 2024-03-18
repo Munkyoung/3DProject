@@ -8,36 +8,30 @@ public class EquipmentSlot : MonoBehaviour, IDropHandler
 {
     public SOEquipment equipItem;
     public SOEquipment dragItem;
-    [SerializeField] EquipItem.EquipType equipType;
+    [SerializeField]
+    EquipType equipType;
 
     public Image SlotImage;
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (InventoryMgr.inst.OnDragItem is SOEquipment)
+        dragItem = InventoryMgr.inst.WearEquip(equipType);
+        if (dragItem != null)
         {
-           /* dragItem = InventoryMgr.inst.OnDragItem as SOEquipment;
-            InventoryMgr.inst.IsDrop = true;
             equipItem = dragItem;
-            SlotImage.sprite = Resources.Load<Sprite>(equipItem.spriteName);
-            if ()
-            {
-
-            }
-            else
-            {
-                //장비 타입이 다를때
-                InventoryMgr.inst.IsDrop = false;
-                return;
-            }*/
         }
         else
         {
-            //장비 아이템이 아닌경우
-            InventoryMgr.inst.IsDrop = false;
             return;
         }
+        RefreshSlot();
+
     }
+    public void RefreshSlot()
+    {
+        SlotImage.sprite = Resources.Load<Sprite>(equipItem.spriteName);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

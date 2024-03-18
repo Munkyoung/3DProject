@@ -12,20 +12,11 @@ public enum InventoryTabType
     Other
 }
 
-public interface Wearalbe
-{
-    void WearEquip();
-
-}
-
 public class InventoryMgr : MonoBehaviour
 {
     //인벤토리에 아이템 최댓값
     public const int MaxInventoryCount = 28;
     public const int PlayerEquipment = 6;
-
-
-
 
     //==================================//
     //------------Status----------------//
@@ -46,8 +37,6 @@ public class InventoryMgr : MonoBehaviour
 
 
 
-
-
     //==================================//
     //------------Inventory-------------//
     [Header("------------Inventory------------")]
@@ -56,11 +45,8 @@ public class InventoryMgr : MonoBehaviour
     ItemSlot[] ItemSlots = new ItemSlot[MaxInventoryCount];
     SOItem[] ItemArr = new SOItem[MaxInventoryCount];
 
-
     //------------Inventory-------------//
     //==================================//
-
-
 
 
 
@@ -69,115 +55,110 @@ public class InventoryMgr : MonoBehaviour
     //==================================//
     //------------TabType-------------//
     [Header("------------TabButton------------")]
-    public InventoryTabType TabType = InventoryTabType.equipment;
     public Button EquipmentTab;
     public Button ConsumTab;
     public Button OtherTab;
+    InventoryTabType TabType = InventoryTabType.equipment;
+    public InventoryTabType tabType
+    {
+        get => TabType;
+        set
+        {
+            TabType = value;
+            Refreshslot();
+        }
+    }
+
     //------------TabType-------------//
     //==================================//
 
     //DragDrop
     public bool IsDrop = false;
-    public SOItem OnDragItem = null;
+    public SOEquipment OnDragItem = null;
     int TestInt = 0;
-    //싱글톤
+
+
+    //싱글톤 패턴
     public static InventoryMgr inst = null;
-
-
 
     private void Awake()
     {
         inst = this;
+        ItemSlots = this.GetComponentsInChildren<ItemSlot>();
+    }
+    private void OnEnable()
+    {
+        Refreshslot();
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        ItemSlots = this.GetComponentsInChildren<ItemSlot>();
         //TabButton 처리
         if (EquipmentTab != null)
             EquipmentTab.onClick.AddListener(() =>
             {
-                TabType = InventoryTabType.equipment;
-                Refreshslot();
+                tabType = InventoryTabType.equipment;
             });
         if (ConsumTab != null)
             ConsumTab.onClick.AddListener(() =>
             {
-                TabType = InventoryTabType.consumable;
-                Refreshslot();
+                tabType = InventoryTabType.consumable;
             });
         if (OtherTab != null)
             OtherTab.onClick.AddListener(() =>
             {
-                TabType = InventoryTabType.Other;
-                Refreshslot();
+                tabType = InventoryTabType.Other;
             });
         //TabButton 처리
-
-
         Refreshslot();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*        //------테스트용-------
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    SOeq Testequip = new EquipItem();
-                    Testequip.count = TestInt;
-                    Testequip.type = EquipItem.EquipType.Helmet;
-                    TestInt++;
-                    EquipItemList.Add(Testequip);
-                    Refreshslot();
-                }
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-                    ConsumItemList.Add(new ConsumItem(5.0f));
-                    Debug.Log("아이템 이름 = " + ConsumItemList[0].itemName);
-                    StartCoroutine(ConsumItemList[0].ItemCool());
-                }*/
-
-        //------테스트용-------
-    }
-
-    public void WearEquip(EquipItem equip)
-    {
-        //PlayerEquip = StatusPanel.GetComponentsInChildren<ItemSlot>();
-
-
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Refreshslot();
+        }
     }
 
     //슬롯에 아이템 넣기
     //아이템 배열에 
     public void Refreshslot()
     {
-        for (int i = 0; i < MaxInventoryCount; i++)
+        Debug.Log(TabType);
+        for (int i = 0; i < ItemArr.Length; i++)
         {
             ItemArr[i] = null;
         }
-        if (TabType == InventoryTabType.equipment)
+        switch (TabType)
         {
-            for (int i = 0; i < GlobalValue.g_EquipItemList.Count; i++)
-            {
-                ItemArr[i] = GlobalValue.g_EquipItemList[i];
-            }
-        }
-        else if (TabType == InventoryTabType.consumable)
-        {
-            for (int i = 0; i < GlobalValue.g_ConsumItemList.Count; i++)
-            {
-                ItemArr[i] = GlobalValue.g_ConsumItemList[i];
-            }
-        }
-        else if (TabType == InventoryTabType.Other)
-        {
-            for (int i = 0; i < GlobalValue.g_EtcItemList.Count; i++)
-            {
-                ItemArr[i] = GlobalValue.g_EtcItemList[i];
-            }
+            case InventoryTabType.equipment:
+                {
+                    for (int i = 0; i < GlobalValue.g_EquipItemList.Count; i++)
+                    {
+                        ItemArr[i] = GlobalValue.g_EquipItemList[i];
+                    }
+                }
+                break;
+            case InventoryTabType.consumable:
+                {
+                    for (int i = 0; i < GlobalValue.g_ConsumItemList.Count; i++)
+                    {
+                        ItemArr[i] = GlobalValue.g_ConsumItemList[i];
+                    }
+                }
+                break;
+            case InventoryTabType.Other:
+                {
+                    for (int i = 0; i < GlobalValue.g_EtcItemList.Count; i++)
+                    {
+                        ItemArr[i] = GlobalValue.g_EtcItemList[i];
+                    }
+                }
+                break;
         }
         for (int i = 0; i < ItemSlots.Length; i++)
         {
@@ -185,9 +166,17 @@ public class InventoryMgr : MonoBehaviour
         }
     }
 
-    public bool WearEquip()
+    public SOEquipment WearEquip(EquipType type)
     {
-        return false;
+        if (OnDragItem.equipType == type)
+        {
+            GlobalValue.g_EquipItemList.Remove(OnDragItem);
+            return OnDragItem;
+        }
+        else
+        {
+            return null;
+        }
     }
 
 

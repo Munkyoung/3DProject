@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Coin2000
   m_EditorClassIdentifier: 
   ItemName: "2000\uACE8"
-  SpriteName: Sprites/Item/EtcItem/2000gold
+  SpriteName: Sprites\Item\EtcItem\2000gold
   Price: 2000
   Desc: 2000
   Prefab: {fileID: 3522462081562260777, guid: 0e51cd575ca07e64cab7035d32e958e6, type: 3}

@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Sword_Green
   m_EditorClassIdentifier: 
   ItemName: "\uD754\uD568 \uAC80"
-  SpriteName: Sprites/EquipmentItem/Sword/Sword
+  SpriteName: Sprites\EquipmentItem\Sword\Sword
   Price: 700
   Desc: "\uAC80"
   Prefab: {fileID: 4283578059548365515, guid: 8987a504265c4654e97f3ab8700b9460, type: 3}
   Count: 1
   MaxCount: 1
+  equipType: 5
+  Offense: 0
+  Defense: 0
+  Speed: 0

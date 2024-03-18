@@ -25,11 +25,7 @@ public class ItemTable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            string a = GetItem().itemName;
-            Debug.Log(a);
-        }
+    
     }
 
     //가중치계산

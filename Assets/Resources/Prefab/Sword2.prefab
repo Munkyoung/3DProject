@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3995701948108683967}
   - component: {fileID: 2722032891708553488}
   - component: {fileID: 1320880425212474926}
+  - component: {fileID: 5034149093793180894}
   m_Layer: 0
   m_Name: Sword2
   m_TagString: Untagged
@@ -115,9 +116,22 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5554623
   m_Center: {x: 0.000000009313225, y: -0.03551487, z: -0.13311355}
+--- !u!114 &5034149093793180894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4019815807387625781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09396bac1e918ca44ae37736cbdf67be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}

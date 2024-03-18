@@ -7,13 +7,9 @@ using UnityEngine.UI;
 
 
 
-public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, Wearalbe
+public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     //아이템 이미지
-    SOEquipment Slot_equip;
-    SOEtc Slot_Other;
-    SOConsum Slot_Consum;
-
     public Image IconImage;
     public Text CountText;
     SOItem SlotItem;
@@ -24,15 +20,12 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     Transform startParent;
     //-------------drop------------//
 
-    public void WearEquip()
-    {
-
-    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         startPositon = transform.position;
-        InventoryMgr.inst.OnDragItem = SlotItem;
+        if (SlotItem is SOEquipment)
+            InventoryMgr.inst.OnDragItem = SlotItem as SOEquipment;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -42,31 +35,22 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (InventoryMgr.inst.IsDrop)
-        {
-            InventoryMgr.inst.IsDrop = false;
-            InventoryMgr.EquipItemList.Remove(SlotItem as SOEquipment);
-            InventoryMgr.inst.Refreshslot();
-        }
-        else
-        {
-
-        }
+        InventoryMgr.inst.Refreshslot();
         IconImage.transform.position = startPositon;
     }
 
     public void SetSlot(SOItem item = null)
     {
 
-        if (item is EquipItem)
+        if (item is SOEquipment)
         {
             SlotItem = item as SOEquipment;
         }
-        else if (item is ConsumItem)
+        else if (item is SOConsum)
         {
             SlotItem = item as SOConsum;
         }
-        else if (item is OtherItem)
+        else if (item is SOEtc)
         {
             SlotItem = item as SOEtc;
         }
@@ -74,6 +58,7 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         {
             SlotItem = null;
         }
+        SlotItem = item;
         RefreshSlot();
     }
     public void RefreshSlot()
@@ -81,6 +66,7 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         if (SlotItem != null)
         {
             //빈 처리
+            Debug.Log(SlotItem.itemName);
             IconImage.sprite = Resources.Load<Sprite>(SlotItem.spriteName);
             CountText.text = SlotItem.count.ToString();
         }

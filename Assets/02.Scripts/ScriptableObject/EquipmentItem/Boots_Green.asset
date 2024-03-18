@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Boots_Green
   m_EditorClassIdentifier: 
   ItemName: "\uD754\uD55C \uC2E0\uBC1C"
-  SpriteName: Sprites/EqupmentItem/Green/BootsGreen
+  SpriteName: Sprites\Item\EquipmentItem\Green\Boots_Green
   Price: 500
   Desc: "\uD754\uD55C \uC2E0\uBC1C \uC785\uB2C8\uB2E4."
   Prefab: {fileID: 4557738423299604862, guid: 5a28b27872b0056469519bb60a605a22, type: 3}
   Count: 1
   MaxCount: 1
+  equipType: 2
+  Offense: 0
+  Defense: 0
+  Speed: 0

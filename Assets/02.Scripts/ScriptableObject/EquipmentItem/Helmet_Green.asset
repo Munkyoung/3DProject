@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Helmet_Green
   m_EditorClassIdentifier: 
   ItemName: "\uD754\uD55C \uD5EC\uBA67"
-  SpriteName: Sprites/EqupmentItem/Green/Gloves_Green
+  SpriteName: Sprites/EqupmentItem/Green/Helmet_Green
   Price: 1000
   Desc: "\uB179\uC0C9 \uD5EC\uBA67"
   Prefab: {fileID: 5460613549135129262, guid: fbd08bd33bd0cab4fbbdfc21078dab57, type: 3}
   Count: 1
   MaxCount: 1
+  equipType: 0
+  Offense: 0
+  Defense: 0
+  Speed: 0

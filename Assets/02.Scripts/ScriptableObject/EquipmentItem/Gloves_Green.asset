@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Gloves_Green
   m_EditorClassIdentifier: 
   ItemName: "\uD754\uD55C \uAE00\uB7EC\uBE0C"
-  SpriteName: Sprites/EqupmentItem/Green/Gloves_Green
+  SpriteName: Sprites\Item\EquipmentItem\Green\Gloves_Green
   Price: 400
   Desc: "\uB179\uC0C9 \uAE00\uB7EC\uBE0C"
   Prefab: {fileID: 6433594893858579004, guid: d76989d7c87ac6a438abe6c312920989, type: 3}
   Count: 1
   MaxCount: 1
+  equipType: 4
+  Offense: 0
+  Defense: 0
+  Speed: 0

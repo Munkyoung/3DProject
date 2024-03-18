@@ -6,11 +6,16 @@ public static class GlobalValue
 {
     public static string g_UserName;
 
-    //Inventory 저장용 
-    public static List<SOEquipment> g_EquipItemList;
-    public static List<SOConsum> g_ConsumItemList;
-    public static List<SOEtc> g_EtcItemList;
+    //인벤토리에 들어있는 아이템 리스트
+    public static List<SOEquipment> g_EquipItemList = new List<SOEquipment>();
+    public static List<SOConsum> g_ConsumItemList = new List<SOConsum>();
+    public static List<SOEtc> g_EtcItemList = new List<SOEtc>();
 
+
+    //장착하고 있는 아이템 리스트
+
+
+    //아이템 리스트에 추가
     public static void AddItem(SOItem item)
     {
         if (item is SOEquipment)
@@ -22,5 +27,7 @@ public static class GlobalValue
         else
             return;
     }
+    //보유한 장비로 스탯계산
+
 
 }
