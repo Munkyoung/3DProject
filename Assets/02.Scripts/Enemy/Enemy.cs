@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
         DropItem = this.GetComponent<ItemTable>().GetItem();
         float randx = Random.Range(-1, 1);
         float randz = Random.Range(-1, 1);
+        Instantiate(DropItem);
         Vector3 DropPositon = new Vector3(transform.position.x - randx, transform.position.y, transform.position.z + randz);
         GameObject dropitem = Instantiate(DropItem.Prefab, DropPositon, Quaternion.identity) as GameObject;
         dropitem.GetComponent<ItemCtrl>().item = DropItem;

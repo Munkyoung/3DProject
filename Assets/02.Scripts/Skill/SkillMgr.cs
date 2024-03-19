@@ -12,13 +12,16 @@ public class SkillMgr : MonoBehaviour
     List<Skill> skillList = new List<Skill>();
 
     //스킬루트 
-    SkillNode SkillRoot;
+    static SkillNode SkillRoot;
     int SlotIndex = 0;
 
+
     public GameObject SkillInfoPanel;
-    public Text SkInfoText;
-    public Text SkInfoPointText;
     public Image SkInfoIconImage;
+    public Text SkInfoSkillName;
+    public Text SkInfoSkillPoint;
+    public Text SkInfoSkillDesc;
+
 
     public static SkillMgr inst = null;
 
@@ -26,39 +29,34 @@ public class SkillMgr : MonoBehaviour
     {
         inst = this;
         Slots = GetComponentsInChildren<SkillSlot>();
-        SkillRoot = RootSkill.TestMakeRoot();
     }
     // Start is called before the first frame update
     void Start()
     {
-        GetSkillList(SkillRoot);
+        GetSkillList(GlobalValue.SkillTree);
         SlotIndex = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            GetSkillList(SkillRoot);
-            SlotIndex = 0;
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            RootSkill.PrintData(SkillRoot);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            //RootSkill.SkillPointUpDown(SkillRoot, new PassiveSkill_HpUp(), 1);
-        }
+
     }
     public void GetSkillList(SkillNode root)
     {
-        Slots[SlotIndex].RefreshSlot(root.skill);
-        SlotIndex++;
-        foreach (SkillNode node in root.child)
+        try
         {
-            GetSkillList(node);
+            Slots[SlotIndex].RefreshSlot(root.skill);
+            SlotIndex++;
+            foreach (SkillNode node in root.child)
+            {
+                GetSkillList(node);
+            }
+
+        }
+        catch
+        {
+            Debug.Log("에러");
         }
     }
 
@@ -74,7 +72,7 @@ public class SkillMgr : MonoBehaviour
     {
         if (isOn)
         {
-            if(skill == null)
+            if (skill == null)
             {
                 Debug.Log("skill null");
             }
@@ -85,8 +83,8 @@ public class SkillMgr : MonoBehaviour
             SkillInfoPanel.transform.position = Input.mousePosition;
             SkillInfoPanel.gameObject.SetActive(true);
             SkInfoIconImage.sprite = Resources.Load<Sprite>(skill.spriteName);
-            SkInfoPointText.text = skill.GetSkPoint();
-            SkInfoText.text = skill.skillInfo;
+            SkInfoSkillPoint.text = skill.GetSkPoint();
+            SkInfoSkillDesc.text = skill.skillInfo;
         }
         else
         {

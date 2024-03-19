@@ -6,6 +6,10 @@ public class PlayerCtrl : MonoBehaviour
 {
     List<GameObject> PickItemList = new List<GameObject>();
 
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +23,40 @@ public class PlayerCtrl : MonoBehaviour
         {
             PickUpItem();
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            UseSkill(0);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            UseSkill(1);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            UseSkill(2);
+        }
     }
+    public void UseSkill(int index)
+    {
+        if (GlobalValue.PlayerSkill[index] != null)
+        {
+            Debug.Log(GlobalValue.PlayerSkill[index].skillName);
+            GlobalValue.PlayerSkill[index].UseActiveSkill(this.gameObject, this.transform);
+        }
+        else
+        {
+            Debug.Log("Null");
+        }
+    }
+    public void ChangeSkill(ActiveSkill newSkill, int index)
+    {
+        if (newSkill != null && 0 <= index && index < GlobalValue.PlayerSkill.Length)
+            GlobalValue.PlayerSkill[index] = newSkill;
+    }
+
+
+
+
     public void PickUpItem()
     {
         if (0 < PickItemList.Count)
@@ -29,11 +66,13 @@ public class PlayerCtrl : MonoBehaviour
             PickItemList.RemoveAt(0);
             InventoryMgr.inst.Refreshslot();
         }
+
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+        //아이템 픽업
         SOItem item = other.GetComponent<ItemCtrl>().item;
         Debug.Log(item.name);
         if (item != null)

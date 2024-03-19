@@ -118,10 +118,7 @@ public class InventoryMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Refreshslot();
-        }
+        
     }
 
     //슬롯에 아이템 넣기

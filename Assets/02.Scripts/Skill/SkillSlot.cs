@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     Skill SlotSkill;
 
-    public Image slotImage;
-    public Text skillCountText;
+    public Image IconImage;
+    public Text SkillPointText;
 
     float ShowInfoTimer;
     const float ShowInfoTime = 0.5f;
@@ -17,6 +17,11 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public Button SkPointUpBtn;
     public Button SkPointDownBtn;
+
+    Vector3 startPos;
+    Image DragItem;
+
+
 
 
 
@@ -58,8 +63,8 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (skill != null)
             this.SlotSkill = skill;
-        slotImage.sprite = Resources.Load<Sprite>(SlotSkill.spriteName);
-        skillCountText.text = SlotSkill.skillPoint + "/" + SlotSkill.maxSkillPoint.ToString();
+        IconImage.sprite = Resources.Load<Sprite>(SlotSkill.spriteName);
+        SkillPointText.text = SlotSkill.skillPoint + "/" + SlotSkill.maxSkillPoint.ToString();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -73,5 +78,23 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         isMouseOn = true;
     }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        IconImage.transform.position = Input.mousePosition;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        startPos = transform.position;
+
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        IconImage.transform.position = startPos;
+        GameMgr.inst.OnDragSkill = SlotSkill;
+    }
+
 
 }

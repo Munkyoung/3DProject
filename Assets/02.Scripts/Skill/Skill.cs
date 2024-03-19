@@ -6,8 +6,7 @@ public abstract class Skill
     string SkillName;
     string SpriteName;
     string SkillInfo;
-    float SkillValue;
-    float[] SkillValueArr = new float[2];
+    float Value;
     int SkillPoint;
     int MaxSkillPoint;
 
@@ -33,18 +32,15 @@ public abstract class Skill
     {
         return SkillPoint.ToString() + "/" + MaxSkillPoint.ToString();
     }
-    public virtual void UpdateValue()
-    {
-
-    }
-
+    
 
     public string skillName { get => SkillName; set => SkillName = value; }
     public int skillPoint { get => SkillPoint; set { SkillPoint = value; } }
     public string spriteName { get => SpriteName; set => SpriteName = value; }
     public string skillInfo { get => SkillInfo; set => SkillInfo = value; }
     public int maxSkillPoint { get => MaxSkillPoint; set => MaxSkillPoint = value; }
-    public float value { get => SkillValueArr[skillPoint]; set => SkillValue = value; }
+    public float value { get => Value; set => Value = value; }
+
 }
 public class PassiveSkill : Skill
 {
@@ -63,7 +59,7 @@ public class ActiveSkill : Skill
 
     }
 
-    public virtual void UseSkill()
+    public virtual void UseActiveSkill(GameObject User, Transform Target)
     {
         Debug.Log("스킬 사용");
     }
@@ -78,12 +74,15 @@ public class ActiveSkill_Swing : ActiveSkill
         base.skillPoint = 0;
         base.maxSkillPoint = 5;
         base.skillInfo = $"SkillPoint : {skillPoint} 전방으로 스킬을 사용합니다";
+        base.value = 100;
         cooltime = 7.0f;
     }
 
-    public override void UseSkill()
+    public override void UseActiveSkill(GameObject User, Transform Target)
     {
-
+        base.UseActiveSkill(User, Target);
+        Debug.Log(skillName);
+        Debug.Log(value);
     }
 }
 
@@ -98,9 +97,12 @@ public class ActiveSkill_Rush : ActiveSkill
         base.maxSkillPoint = 5;
         cooltime = 10.0f;
     }
-    public override void UseSkill()
-    {
 
+    public override void UseActiveSkill(GameObject User, Transform Target)
+    {
+        base.UseActiveSkill(User, Target);
+        Debug.Log(skillName);
+        Debug.Log(value);
     }
 }
 
