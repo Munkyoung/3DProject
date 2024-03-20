@@ -7,26 +7,15 @@ using UnityEngine;
 
 public class ItemTable : MonoBehaviour
 {
+    //아이템과 가중치를 담을 Table클래스
     [Serializable]
-    public class Table
+    public class Element
     {
         public SOItem item;
         public float Weight;
     }
 
-    public List<Table> ItemTabes = new List<Table>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    
-    }
+    public List<Element> ItemTabes = new List<Element>();
 
     //가중치계산
     public SOItem GetItem()
@@ -38,27 +27,27 @@ public class ItemTable : MonoBehaviour
         float Pivot = 0.0f;
 
         //리스트를 오름차순으로 정렬
-        List<Table> test = ItemTabes.OrderBy(t => t.Weight).ToList();
+        List<Element> test = ItemTabes.OrderBy(t => t.Weight).ToList();
 
         //return할 item을 담을 SOitem형 변수
         SOItem item = test[test.Count - 1].item;
 
 
-        foreach (Table table in ItemTabes)
+        foreach (Element element in ItemTabes)
         {
-            total += table.Weight;
+            total += element.Weight;
         }
         Pivot = UnityEngine.Random.Range(0, total);
 
-        foreach (Table table in test)
+        foreach (Element element in test)
         {
-            if (table.Weight <= Pivot)
+            if (element.Weight <= Pivot)
             {
-                Pivot -= table.Weight;
+                Pivot -= element.Weight;
             }
             else
             {
-                item = table.item;
+                item = element.item;
                 break;
             }
         }

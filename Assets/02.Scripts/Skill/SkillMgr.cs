@@ -44,19 +44,11 @@ public class SkillMgr : MonoBehaviour
     }
     public void GetSkillList(SkillNode root)
     {
-        try
+        Slots[SlotIndex].RefreshSlot(root.skill);
+        SlotIndex++;
+        foreach (SkillNode node in root.child)
         {
-            Slots[SlotIndex].RefreshSlot(root.skill);
-            SlotIndex++;
-            foreach (SkillNode node in root.child)
-            {
-                GetSkillList(node);
-            }
-
-        }
-        catch
-        {
-            Debug.Log("¿¡·¯");
+            GetSkillList(node);
         }
     }
 

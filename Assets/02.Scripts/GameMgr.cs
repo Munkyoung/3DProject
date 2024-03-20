@@ -30,6 +30,14 @@ public class GameMgr : MonoBehaviour
         for (int i = 0; i < PlayerSkill.Length; i++)
             PlayerSkill[i].SetSkillPanel();
     }
+    public bool IsPanelOn()
+    {
+        if (MiniMap.activeSelf || Inventory.activeSelf || SkillTree.activeSelf)
+            return true;
+        else
+            return false;
+    }
+
 
     // Update is called once per frame
     void Update()

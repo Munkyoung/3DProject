@@ -59,6 +59,24 @@ class RootSkill
             PrintData(node);
         }
     }
+    public static void CheckSkillPoint(SkillNode root, string skillName, int value)
+    {
+        if (root.skill.skillName == skillName)
+        {
+            root.skill.PointUpDown(value);
+        }
+        else
+        {
+            if (0 < root.skill.skillPoint)
+            {
+                foreach (SkillNode node in root.child)
+                {
+                    CheckSkillPoint(node, skillName, value);
+                }
+            }
+        }
+
+    }
 
     public static void LoadSkillData(SkillNode root)
     {

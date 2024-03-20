@@ -17,14 +17,12 @@ public class InventoryMgr : MonoBehaviour
     //인벤토리에 아이템 최댓값
     public const int MaxInventoryCount = 28;
     public const int PlayerEquipment = 6;
-
     //==================================//
     //------------Status----------------//
     [Header("------------Status------------")]
     public GameObject StatusPanel;
 
-
-    //status창의 수치 조절
+    //status창에 보여질 스텟 텍스트
     public Text HpText;
     public Text AttText;
     public Text DefText;
@@ -34,6 +32,7 @@ public class InventoryMgr : MonoBehaviour
     public static SOEquipment[] equipItems; //플레이어 장비 스태틱
     //------------Status----------------//
     //==================================//
+
 
 
 
@@ -75,8 +74,6 @@ public class InventoryMgr : MonoBehaviour
     //DragDrop
     public bool IsDrop = false;
     public SOEquipment OnDragItem = null;
-    int TestInt = 0;
-
 
     //싱글톤 패턴
     public static InventoryMgr inst = null;
@@ -118,7 +115,7 @@ public class InventoryMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //슬롯에 아이템 넣기

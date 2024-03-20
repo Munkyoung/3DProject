@@ -20,11 +20,6 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     Vector3 startPos;
     Image DragItem;
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +28,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (SkPointUpBtn != null)
             SkPointUpBtn.onClick.AddListener(() =>
             {
-                SlotSkill.PointUpDown(1);
+                RootSkill.CheckSkillPoint(GlobalValue.SkillTree, SlotSkill.skillName, 1);
                 RefreshSlot();
             });
         if (SkPointDownBtn != null)
@@ -64,6 +59,14 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (skill != null)
             this.SlotSkill = skill;
         IconImage.sprite = Resources.Load<Sprite>(SlotSkill.spriteName);
+        if (skill.skillPoint <= 0)
+        {
+            IconImage.color = new Color(100, 100, 100);
+        }
+        else
+        {
+            IconImage.color = new Color(255, 255, 255);
+        }
         SkillPointText.text = SlotSkill.skillPoint + "/" + SlotSkill.maxSkillPoint.ToString();
     }
 
@@ -87,13 +90,13 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnBeginDrag(PointerEventData eventData)
     {
         startPos = transform.position;
-
+        GameMgr.inst.OnDragSkill = SlotSkill;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         IconImage.transform.position = startPos;
-        GameMgr.inst.OnDragSkill = SlotSkill;
+        GameMgr.inst.OnDragSkill = null;
     }
 
 

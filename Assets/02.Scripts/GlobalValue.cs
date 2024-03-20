@@ -11,7 +11,11 @@ public static class GlobalValue
     public static List<SOConsum> g_ConsumItemList = new List<SOConsum>();
     public static List<SOEtc> g_EtcItemList = new List<SOEtc>();
 
+
+    //플레이어의 스킬 트리
     public static SkillNode SkillTree = RootSkill.TestMakeRoot();
+
+    //플레이어가 장착하고있는 스킬
     public static ActiveSkill[] PlayerSkill = new ActiveSkill[4];
 
     //장착하고 있는 아이템 리스트

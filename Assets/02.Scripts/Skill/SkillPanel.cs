@@ -16,6 +16,9 @@ public class SkillPanel : MonoBehaviour, IDropHandler
     {
         SetSkillPanel();
     }
+
+
+
     public void SetSkillPanel()
     {
         if (GameMgr.inst.OnDragSkill != null)
@@ -30,7 +33,11 @@ public class SkillPanel : MonoBehaviour, IDropHandler
 
     public void Refresh()
     {
-        SkillIcon.sprite = Resources.Load<Sprite>(Skill.spriteName);
+        Skill = GlobalValue.PlayerSkill[SlotIndex];
+        if (Skill != null)
+        {
+            SkillIcon.sprite = Resources.Load<Sprite>(Skill.spriteName);
+        }
     }
 
     // Start is called before the first frame update    

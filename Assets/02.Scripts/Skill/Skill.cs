@@ -17,6 +17,17 @@ public abstract class Skill
         SpriteName = string.Empty;
     }
 
+    protected Skill(string skillName, string spriteName, string skillInfo, float value, int skillPoint, int maxSkillPoint)
+    {
+        SkillName = skillName;
+        SpriteName = spriteName;
+        SkillInfo = skillInfo;
+        this.value = value;
+        SkillPoint = skillPoint;
+        MaxSkillPoint = maxSkillPoint;
+    }
+
+
     public bool PointUpDown(int value)
     {
         int skPoint = skillPoint + value;
@@ -32,7 +43,7 @@ public abstract class Skill
     {
         return SkillPoint.ToString() + "/" + MaxSkillPoint.ToString();
     }
-    
+
 
     public string skillName { get => SkillName; set => SkillName = value; }
     public int skillPoint { get => SkillPoint; set { SkillPoint = value; } }
@@ -59,10 +70,20 @@ public class ActiveSkill : Skill
 
     }
 
+    public ActiveSkill(float coolTime, float cooltime)
+    {
+        CoolTime = coolTime;
+        this.cooltime = cooltime;
+    }
+
     public virtual void UseActiveSkill(GameObject User, Transform Target)
     {
-        Debug.Log("스킬 사용");
+        Debug.Log("부모 스킬 사용");
     }
+
+}
+public class SkillList
+{
 
 }
 public class ActiveSkill_Swing : ActiveSkill
@@ -80,9 +101,16 @@ public class ActiveSkill_Swing : ActiveSkill
 
     public override void UseActiveSkill(GameObject User, Transform Target)
     {
-        base.UseActiveSkill(User, Target);
-        Debug.Log(skillName);
-        Debug.Log(value);
+        if (skillPoint > 0)
+        {
+            base.UseActiveSkill(User, Target);
+            Debug.Log(skillName);
+            Debug.Log(value);
+        }
+        else
+        {
+            Debug.Log("스킬포인트 부족");
+        }
     }
 }
 
@@ -100,9 +128,16 @@ public class ActiveSkill_Rush : ActiveSkill
 
     public override void UseActiveSkill(GameObject User, Transform Target)
     {
-        base.UseActiveSkill(User, Target);
-        Debug.Log(skillName);
-        Debug.Log(value);
+        if (skillPoint > 0)
+        {
+            base.UseActiveSkill(User, Target);
+            Debug.Log(skillName);
+            Debug.Log(value);
+        }
+        else
+        {
+            Debug.Log("스킬포인트 부족");
+        }
     }
 }
 
@@ -117,6 +152,19 @@ public class ActiveSkill_Heal : ActiveSkill
         base.skillPoint = 0;
         base.maxSkillPoint = 5;
         cooltime = 15.0f;
+    }
+    public override void UseActiveSkill(GameObject User, Transform Target)
+    {
+        if (skillPoint > 0)
+        {
+            base.UseActiveSkill(User, Target);
+            Debug.Log(skillName);
+            Debug.Log(value);
+        }
+        else
+        {
+            Debug.Log("스킬포인트 부족");
+        }
     }
 }
 public class PassiveSkill_PowerUp : PassiveSkill
