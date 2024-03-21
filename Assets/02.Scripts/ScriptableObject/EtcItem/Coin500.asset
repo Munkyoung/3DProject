@@ -16,6 +16,6 @@ MonoBehaviour:
   SpriteName: Sprites\Item\EtcItem\500gold
   Price: 500
   Desc: "500\uC6D0"
-  Prefab: {fileID: 7244328284609020742, guid: b667aba89e2fdde439de01cfe79574e3, type: 3}
+  Prefab: {fileID: 7244328284609020742, guid: c0ea0ed8199862246ba50cbff50af28f, type: 3}
   Count: 1
   MaxCount: 1

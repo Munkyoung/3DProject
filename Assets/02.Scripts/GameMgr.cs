@@ -30,12 +30,12 @@ public class GameMgr : MonoBehaviour
         for (int i = 0; i < PlayerSkill.Length; i++)
             PlayerSkill[i].SetSkillPanel();
     }
-    public bool IsPanelOn()
+    public bool IsAnyPanelOff()
     {
         if (MiniMap.activeSelf || Inventory.activeSelf || SkillTree.activeSelf)
-            return true;
-        else
             return false;
+        else
+            return true;
     }
 
 

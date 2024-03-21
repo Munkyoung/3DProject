@@ -89,10 +89,10 @@ public class TraceAction : Node
 
     public override NodeState Evaluate()
     {
-        Debug.Log("Treacing");
         Animator.SetBool("IsTrace", true);
         Subject.transform.LookAt(Target.transform);
         Subject.transform.position = Vector3.Lerp(Subject.transform.position, Target.transform.position, Time.deltaTime);
+        Subject.transform.position = new Vector3(Subject.transform.position.x, 0.0f, Subject.transform.position.z);
         return NodeState.Running;
     }
 }
@@ -121,22 +121,20 @@ public class CheckInAttackRange : Node
             Animator.SetBool("Attack", false);
             return NodeState.Failure;
         }
-        
+
     }
 }
 public class AttackAction : Node
 {
     Animator Anim;
-  
+
     public AttackAction(Animator anim)
     {
         Anim = anim;
     }
     public override NodeState Evaluate()
     {
-        Debug.Log("Attack");
         Anim.SetBool("Attack", true);
-        
         return NodeState.Running;
     }
 }

@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 5202162415899696240}
   - component: {fileID: -1946055096120952487}
   - component: {fileID: -3858249177944579915}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Gloves
   m_TagString: Untagged
   m_Icon: {fileID: 0}

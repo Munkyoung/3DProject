@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
         hp = -1.0f;
         Animator.SetTrigger("Die");
         DropItem = this.GetComponent<ItemTable>().GetItem();
+        this.GetComponent<CapsuleCollider>().enabled = false;
         float randx = Random.Range(-1, 1);
         float randz = Random.Range(-1, 1);
         Instantiate(DropItem);

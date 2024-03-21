@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 616956366900689845}
   - component: {fileID: 8902867038451590503}
   - component: {fileID: 1944130943708353790}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PirateCoin1000
   m_TagString: Untagged
   m_Icon: {fileID: 0}

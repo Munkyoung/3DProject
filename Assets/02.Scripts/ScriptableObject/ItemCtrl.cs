@@ -6,9 +6,9 @@ public class ItemCtrl : MonoBehaviour
 {
     public SOItem item;
 
-    private void OnTriggerEnter(Collider other)
+    public bool PickItem()
     {
-
+        return GlobalValue.AddItem(item);
     }
 
     // Start is called before the first frame update

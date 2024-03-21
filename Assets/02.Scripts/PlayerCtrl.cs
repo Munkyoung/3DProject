@@ -4,12 +4,38 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    List<GameObject> PickItemList = new List<GameObject>();
+    enum PlayerState
+    {
+        Idle = 0,
+        Run,
+        Attack,
+        PickUp
+    }
 
+    List<GameObject> PickItemList = new List<GameObject>();
+    float MoveSpeed = 5.0f;
+    float RotSpeed = 5.0f;
+    float dist = 0;
+    public Animator PlayerAnim;
+
+    float AttackRange = 2.0f;
+    float PickUpRange = 1.0f;
+    GameObject TargetObj = null;
+    Vector3 TargetVec;
+
+    //마우스 클릭감지를 위한 변수
+    Ray ray;
+    RaycastHit hit;
+
+    //WayPointMark관련 변수
+    [Header("------WayPoint------")]
+    public GameObject WayPointMark = null;
+    public Animator WpMarkAnimator = null;
     // Start is called before the first frame update
     void Start()
     {
-
+        Application.targetFrameRate = 60;
+        TargetVec = transform.position;
     }
 
     // Update is called once per frame
@@ -36,7 +62,70 @@ public class PlayerCtrl : MonoBehaviour
             UseSkill(3);
         }
 
+        if (GameMgr.inst.IsAnyPanelOff())
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                {
+                    TargetVec = hit.point;
+                    TargetVec.y = transform.position.y;
+                    WayPointMark.transform.position = TargetVec;
+                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                    {
+                        WpMarkAnimator.Play("WayPointAnim", -1, 0f);
+                        TargetObj = null;
+                    }
+                    else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                    {
+                        Debug.Log("에너");
+                        TargetObj = hit.collider.gameObject;
+                    }
+                    else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Item"))
+                    {
+                        TargetObj = hit.collider.gameObject;
+                    }
+                }
+            }
+
+            if (AttackEnemy())
+                MoveUpdate();
+        }
     }
+    public void MoveUpdate()
+    {
+        dist = (transform.position - TargetVec).magnitude;
+        if (0.1f < dist)
+        {
+
+            Quaternion targetRot = Quaternion.LookRotation(TargetVec - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, RotSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, TargetVec, MoveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            PlayerAnim.SetBool("IsRun", false);
+        }
+    }
+    public bool AttackEnemy()
+    {
+        if (TargetObj != null && (transform.position - TargetObj.transform.position).magnitude < AttackRange)
+        {
+            PlayerAnim.SetBool("IsRun", false);
+            Quaternion targetRot = Quaternion.LookRotation(TargetObj.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, RotSpeed * Time.deltaTime);
+            Debug.Log("공격");
+            PlayerAnim.SetBool("IsAttack", true);
+            return false;
+        }
+        else
+        {
+            PlayerAnim.SetBool("IsAttack", false);
+            return true;
+        }
+    }
+
     public void UseSkill(int index)
     {
         if (GlobalValue.PlayerSkill[index] != null)
@@ -64,26 +153,15 @@ public class PlayerCtrl : MonoBehaviour
             PickItemList.RemoveAt(0);
             InventoryMgr.inst.Refreshslot();
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        SOItem item = other.GetComponent<ItemCtrl>().item;
-        Debug.Log(item.name);
-        if (item != null)
-        {
-            PickItemList.Add(other.gameObject);
-        }
+
     }
     private void OnTriggerExit(Collider other)
     {
-        SOItem item = other.GetComponent<ItemCtrl>().item;
-        if (item != null)
-        {
-            Debug.Log(item.itemName);
-            PickItemList.Remove(other.gameObject);
-        }
+
     }
     private void OnTriggerStay(Collider other)
     {

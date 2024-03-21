@@ -22,16 +22,25 @@ public static class GlobalValue
 
 
     //아이템 리스트에 추가
-    public static void AddItem(SOItem item)
+    public static bool AddItem(SOItem item)
     {
-        if (item is SOEquipment)
+        if (item is SOEquipment && g_EquipItemList.Count < 28)
+        {
             g_EquipItemList.Add(item as SOEquipment);
-        else if (item is SOConsum)
+            return true;
+        }
+        else if (item is SOConsum && g_ConsumItemList.Count < 28)
+        {
             g_ConsumItemList.Add(item as SOConsum);
-        else if (item is SOEtc)
+            return true;
+        }
+        else if (item is SOEtc && g_EtcItemList.Count < 28)
+        {
             g_EtcItemList.Add(item as SOEtc);
+            return true;
+        }
         else
-            return;
+            return false;
     }
     //보유한 장비로 스탯계산
 
