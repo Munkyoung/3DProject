@@ -42,13 +42,13 @@ public class GameMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
             MiniMap.SetActive(!MiniMap.activeSelf);
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
             Inventory.SetActive(!Inventory.activeSelf);
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
             SkillTree.SetActive(!SkillTree.activeSelf);
     }
 }

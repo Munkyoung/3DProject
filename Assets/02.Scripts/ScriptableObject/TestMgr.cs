@@ -20,22 +20,7 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SpawnItem(A);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SpawnItem(B);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SpawnItem(C);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SpawnItem(D);
-        }
+      
     }
     public void SpawnItem(SOItem a)
     {
