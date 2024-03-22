@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, ITakeDamagealbe
 {
     //행동 트리 루트
     Selector BehaviourRoot;
-
     //드랍 테이블에서 가져온 아이템을 담을 변수
     SOItem DropItem;
 
@@ -14,8 +14,20 @@ public class Enemy : MonoBehaviour
     GameObject Target;
     public Animator Animator;
 
+    public Image HpBar;
+
     float Hp = 200;
-    public float hp { get => Hp; set => Hp = value; }
+    public float hp
+    {
+        get => Hp;
+        set
+        {
+            Hp = value;
+            RefreshHp();
+        }
+    }
+
+
     float MaxHp = 200;
 
 
@@ -53,6 +65,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    private void OnCollisionEnter(Collision coll)
+    {
+        if (coll.gameObject.tag == "Weapon")
+        {
+            TakeDamage(GlobalValue.curAtt);
+        }
+    }
+
+
+
+    void RefreshHp()
+    {
+        HpBar.fillAmount = hp / MaxHp;
+    }
+
     public void EnemyDie()
     {
         hp = -1.0f;
@@ -67,6 +95,19 @@ public class Enemy : MonoBehaviour
         dropitem.GetComponent<ItemCtrl>().item = DropItem;
         Destroy(dropitem, 10.0f);
         Destroy(this.gameObject, 5.0f);
+
     }
 
+    public void TakeDamage(float value)
+    {
+        Debug.Log("TakeDamage");
+        if (0f < Hp) return;
+
+        Hp -= value;
+        RefreshHp();
+        if (0f < Hp)
+        {
+            EnemyDie();
+        }
+    }
 }

@@ -1,16 +1,70 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class GlobalValue
 {
-    public static string g_UserName;
+    static float CurHp = 200.0f;
+    public static float curHp
+    {
+        get { return curHp; }
+        set { curHp = value; }
+    }
+    static float MaxHp = 200;
+    public static float maxHp
+    {
+        get { return maxHp * level * 10; }
 
-    //인벤토리에 들어있는 아이템 리스트
+    }
+    static float Level;
+    public static float level
+    {
+        get { return Level; }
+        set
+        {
+            Level = value;
+        }
+    }
+
+    static float AttStat = 10;
+    static float DefStat;
+    static float SpdStat;
+
+    static float CurAtt;
+    static float CurDef;
+    static float CurSpeed;
+
+    public static float curAtt
+    {
+        get
+        {
+            UpdateAtt();
+            return CurAtt;
+        }
+    }
+    public static float curDef
+    {
+        get
+        {
+            UpdateDef();
+            return CurDef;
+        }
+    }
+    public static float curSpeed
+    {
+        get
+        {
+            UpdateSpd();
+            return CurSpeed;
+        }
+    }
+
     public static List<SOEquipment> g_EquipItemList = new List<SOEquipment>();
     public static List<SOConsum> g_ConsumItemList = new List<SOConsum>();
     public static List<SOEtc> g_EtcItemList = new List<SOEtc>();
 
+    public static int layerMask = (1 << LayerMask.NameToLayer("Item")) + (1 << LayerMask.NameToLayer("Ground")) + (1 << LayerMask.NameToLayer("Enemy"));
 
     //플레이어의 스킬 트리
     public static SkillNode SkillTree = RootSkill.TestMakeRoot();
@@ -19,7 +73,7 @@ public static class GlobalValue
     public static ActiveSkill[] PlayerSkill = new ActiveSkill[4];
 
     //장착하고 있는 아이템 리스트
-
+    public static SOEquipment[] g_PlayerEquipment = new SOEquipment[6];
 
     //아이템 리스트에 추가
     public static bool AddItem(SOItem item)
@@ -43,6 +97,34 @@ public static class GlobalValue
             return false;
     }
     //보유한 장비로 스탯계산
+    private static void UpdateAtt()
+    {
+        int att = (int)AttStat;
+        for (int i = 0; i < g_PlayerEquipment.Length; i++)
+        {
+            if (g_PlayerEquipment[i] != null)
+                att += g_PlayerEquipment[i].Offense;
+        }
+        CurAtt = att;
+    }
+    private static void UpdateDef()
+    {
+        int def = 0;
+        for (int i = 0; i < g_PlayerEquipment.Length; i++)
+        {
+            def += g_PlayerEquipment[i].Defense;
+        }
+        CurDef = def;
 
+    }
+    private static void UpdateSpd()
+    {
+        int spd = 0;
+        for (int i = 0; i < g_PlayerEquipment.Length; i++)
+        {
+            spd += g_PlayerEquipment[i].Defense;
+        }
+        CurDef = spd;
+    }
 
 }
