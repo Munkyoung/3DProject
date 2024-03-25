@@ -146,7 +146,7 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
         dist = (transform.position - TargetVec).magnitude;
         if (0.1f < dist)
         {
-
+            animState = AnimStates.Run;
             Quaternion targetRot = Quaternion.LookRotation(TargetVec - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, RotSpeed * Time.deltaTime);
             transform.position = Vector3.MoveTowards(transform.position, TargetVec, MoveSpeed * Time.deltaTime);
