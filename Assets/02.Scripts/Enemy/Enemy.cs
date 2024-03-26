@@ -26,10 +26,7 @@ public class Enemy : MonoBehaviour, ITakeDamagealbe
             RefreshHp();
         }
     }
-
-
     float MaxHp = 200;
-
 
     // Start is called before the first frame update
     void Start()
@@ -40,14 +37,19 @@ public class Enemy : MonoBehaviour, ITakeDamagealbe
         BehaviourRoot = new Selector();
         //BehaviourRoot.AddNode(new CheckDie(this.gameObject, Animator));
 
+        //공격 시퀀스 
         Sequence InAttRange = new Sequence();
+        //공격 사거리 체크
         InAttRange.AddNode(new CheckInAttackRange(this.gameObject, Target, Animator));
+        //공격 액션
         InAttRange.AddNode(new AttackAction(Animator));
         BehaviourRoot.AddNode(InAttRange);
 
         //추적 시퀀스안에 
         Sequence InTraceRange = new Sequence();
+        //추적 사거리 체크
         InTraceRange.AddNode(new CheckNearbyTarget(this.gameObject, Target, Animator));
+        //추적 액션
         InTraceRange.AddNode(new TraceAction(this.gameObject, Target, Animator));
         BehaviourRoot.AddNode(InTraceRange);
     }
@@ -66,14 +68,14 @@ public class Enemy : MonoBehaviour, ITakeDamagealbe
     }
 
 
-    private void OnCollisionEnter(Collision coll)
-    {
-        if (coll.gameObject.tag == "Weapon")
-        {
-            TakeDamage(GlobalValue.curAtt);
-        }
-    }
-
+    /*  private void OnCollisionEnter(Collision coll)
+      {
+          if (coll.gameObject.tag == "Weapon")
+          {
+              TakeDamage(GlobalValue.curAtt);
+          }
+      }
+  */
 
 
     void RefreshHp()
@@ -101,11 +103,10 @@ public class Enemy : MonoBehaviour, ITakeDamagealbe
     public void TakeDamage(float value)
     {
         Debug.Log("TakeDamage");
-        if (0f < Hp) return;
+        if (hp < 0.0f) return;
 
-        Hp -= value;
-        RefreshHp();
-        if (0f < Hp)
+        hp -= value;
+        if (hp < 0.0f)
         {
             EnemyDie();
         }

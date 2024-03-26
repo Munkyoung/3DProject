@@ -14,7 +14,7 @@ public enum EquipType
 public class SOEquipment : SOItem
 {
     [SerializeField]
-    public EquipType equipType;
+    public EquipType EquipType;
     [Header("------STATS------")]
     [SerializeField]
     public int Offense;

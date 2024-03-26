@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 854773825770712219}
   m_Layer: 11
   m_Name: Helmet
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09396bac1e918ca44ae37736cbdf67be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: ce1931da2c7c7004b907ecb45c5b67ba, type: 2}
 --- !u!1 &5980122550973248907
 GameObject:
   m_ObjectHideFlags: 0

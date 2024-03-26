@@ -9,13 +9,13 @@ public class EquipmentSlot : MonoBehaviour, IDropHandler
     public SOEquipment equipItem;
     public SOEquipment dragItem;
     [SerializeField]
-    EquipType equipType;
+    EquipType EquipType;
 
     public Image SlotImage;
 
     public void OnDrop(PointerEventData eventData)
     {
-        dragItem = InventoryMgr.inst.WearEquip(equipType);
+        dragItem = InventoryMgr.inst.WearEquip(EquipType);
         if (dragItem != null)
         {
             equipItem = dragItem;

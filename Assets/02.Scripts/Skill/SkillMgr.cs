@@ -44,7 +44,7 @@ public class SkillMgr : MonoBehaviour
     }
     public void GetSkillList(SkillNode root)
     {
-        Slots[SlotIndex].RefreshSlot(root.skill);
+        Slots[SlotIndex].SetSlot(root.skill);
         SlotIndex++;
         foreach (SkillNode node in root.child)
         {
@@ -56,7 +56,7 @@ public class SkillMgr : MonoBehaviour
     {
         for (int i = 0; i < Slots.Length; i++)
         {
-            Slots[i].RefreshSlot(skillList[i]);
+            Slots[i].SetSlot(skillList[i]);
         }
     }
 
@@ -71,12 +71,12 @@ public class SkillMgr : MonoBehaviour
             else
             {
                 Debug.Log(skill.skillName);
+                SkillInfoPanel.transform.position = Input.mousePosition;
+                SkillInfoPanel.gameObject.SetActive(true);
+                SkInfoIconImage.sprite = Resources.Load<Sprite>(skill.spriteName);
+                SkInfoSkillPoint.text = skill.GetSkPoint();
+                SkInfoSkillDesc.text = skill.skillInfo;
             }
-            SkillInfoPanel.transform.position = Input.mousePosition;
-            SkillInfoPanel.gameObject.SetActive(true);
-            SkInfoIconImage.sprite = Resources.Load<Sprite>(skill.spriteName);
-            SkInfoSkillPoint.text = skill.GetSkPoint();
-            SkInfoSkillDesc.text = skill.skillInfo;
         }
         else
         {

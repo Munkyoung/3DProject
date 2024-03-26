@@ -9,6 +9,7 @@ public class SkillNode
     // SkillÇü ´ë½Å string
     public Skill skill;
     public List<SkillNode> child;
+    public SkillNode Parents;
 
     public SkillNode(Skill skill)
     {
@@ -19,8 +20,6 @@ public class SkillNode
 
 class RootSkill
 {
-    int index = 0;
-    List<Skill> list = new List<Skill>();
     public void Treeee(List<string> skname, List<int> skPoint)
     {
     }
@@ -61,21 +60,33 @@ class RootSkill
     }
     public static void CheckSkillPoint(SkillNode root, string skillName, int value)
     {
-        if (root.skill.skillName == skillName)
+        if (0 < value)
         {
-            root.skill.PointUpDown(value);
-        }
-        else
-        {
-            if (0 < root.skill.skillPoint)
+            if (root.skill.skillName == skillName)
             {
-                foreach (SkillNode node in root.child)
+                root.skill.PointUpDown(value);
+                return;
+            }
+            else
+            {
+                if (0 < root.skill.skillPoint)
                 {
-                    CheckSkillPoint(node, skillName, value);
+                    foreach (SkillNode node in root.child)
+                    {
+                        CheckSkillPoint(node, skillName, value);
+                    }
                 }
             }
         }
+        else
+        {
 
+            foreach (SkillNode node in root.child)
+            {
+                CheckSkillPoint(node, skillName, value);
+            }
+
+        }
     }
 
     public static void LoadSkillData(SkillNode root)

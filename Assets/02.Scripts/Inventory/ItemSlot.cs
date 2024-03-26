@@ -14,11 +14,11 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public Text CountText;
     SOItem SlotItem;
 
-    //-------------drop------------//
+    //-------------drag&drop------------//
     Vector3 startPositon = Vector3.zero;
     Transform onDragParent;
     Transform startParent;
-    //-------------drop------------//
+    //-------------drag&drop------------//
 
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -59,9 +59,9 @@ public class ItemSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
             SlotItem = null;
         }
         SlotItem = item;
-        RefreshSlot();
+        SetSlot();
     }
-    public void RefreshSlot()
+    public void SetSlot()
     {
         if (SlotItem != null)
         {

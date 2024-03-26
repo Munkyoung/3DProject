@@ -21,7 +21,7 @@ public class SkillPanel : MonoBehaviour, IDropHandler
 
     public void SetSkillPanel()
     {
-        if (GameMgr.inst.OnDragSkill != null)
+        if (GameMgr.inst.OnDragSkill != null && 0 < GameMgr.inst.OnDragSkill.skillPoint)
         {
             Debug.Log(GameMgr.inst.OnDragSkill.skillName);
             Skill = GameMgr.inst.OnDragSkill;

@@ -158,8 +158,8 @@ public class ActiveSkill_Heal : ActiveSkill
         if (skillPoint > 0)
         {
             base.UseActiveSkill(User, Target);
-            Debug.Log(skillName);
-            Debug.Log(value);
+            User.GetComponent<PlayerCtrl>().hp += 100;
+            Debug.Log("Èú");
         }
         else
         {

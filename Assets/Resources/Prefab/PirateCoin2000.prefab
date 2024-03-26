@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4962848605283313508}
   m_Layer: 11
   m_Name: PirateCoin2000
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09396bac1e918ca44ae37736cbdf67be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: d0811673e6cc2be4f8822e62dec35c7e, type: 2}

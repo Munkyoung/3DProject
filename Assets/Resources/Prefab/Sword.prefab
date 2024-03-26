@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4705901404080842796}
   m_Layer: 11
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,4 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09396bac1e918ca44ae37736cbdf67be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: f4899ec3ab92e904b840fba218c59d8f, type: 2}

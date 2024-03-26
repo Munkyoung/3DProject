@@ -5,8 +5,20 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
 {
-    float Hp;
     float MaxHp = 300.0f;
+    float Hp;
+    public float hp
+    {
+        get { return Hp; }
+        set
+        {
+            Hp = value;
+            if (MaxHp < Hp)
+            {
+                Hp = MaxHp;
+            }
+        }
+    }
     enum AnimStates
     {
         Idle = 0,
@@ -14,10 +26,8 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
         Attack,
         PickUp
     }
-
     AnimStates AnimState = AnimStates.Idle;
 
-    List<GameObject> PickItemList = new List<GameObject>();
     float MoveSpeed = 5.0f;
     float RotSpeed = 5.0f;
     float dist = 0;
@@ -26,10 +36,9 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
     float AttackRange = 2.5f;
     float PickUpRange = 2.0f;
     GameObject TargetObj = null;
-    GameObject TargetItem = null;
     Vector3 TargetVec;
 
-    float attDelay = 1.0f;
+    float attDelay = 0.0f;
 
     private AnimStates animState
     {
@@ -111,34 +120,36 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
                     }
                     else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Item"))
                     {
-                        TargetItem = hit.collider.gameObject;
-                        Debug.Log(TargetItem.name);
+                        TargetObj = hit.collider.gameObject;
+                    }
+                    if (TargetObj != null)
+                    {
+                        dist = (transform.position - TargetObj.transform.position).magnitude;
                     }
                 }
             }
 
-            if (TargetObj = null)
+            if (TargetObj == null)
             {
-                return;
+                MoveUpdate();
             }
-            
-                // move(target) 포인트까지
-            
+            else if (TargetObj != null && TargetObj.gameObject.tag == "Enemy" && dist < AttackRange)
+            {
+                AttackEnemy();
+            }
+            else if (TargetObj != null && TargetObj.gameObject.tag == "Item" && dist < PickUpRange)
+            {
+                PickUpItem();
+            }
             else
             {
-                //hit.gameobject.tag == enemy
-                //attrange 까지 접근
-                //정지
-                //회전
-                //애니메이션
-                //takeDamage
+                MoveUpdate();
             }
 
-            if (PickUpItem())
-                if (AttackEnemy())
-                    MoveUpdate();
-
         }
+
+        if (0.0f < attDelay)
+            attDelay -= Time.deltaTime;
     }
     public void MoveUpdate()
     {
@@ -157,49 +168,24 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
         }
 
     }
-    public bool AttackEnemy()
+    public void AttackEnemy()
     {
-
-        if (TargetObj != null && (transform.position - TargetObj.transform.position).magnitude < AttackRange)
+        if (attDelay < 0.1f)
         {
-            if (0.0f < attDelay)
-            {
-                animState = AnimStates.Attack;
-                attDelay -= Time.deltaTime;
-                return true;
-            }
-            else
-            {
-                Debug.Log("공격");
-                TargetObj.GetComponent<Enemy>().TakeDamage(GlobalValue.curAtt);
-                Quaternion targetRot = Quaternion.LookRotation(TargetObj.transform.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, RotSpeed * Time.deltaTime);
-                attDelay = 1.0f;
-                return false;
-
-            }
-        }
-        else
-        {
-            attDelay = 1.0f;
-            return true;
+            animState = AnimStates.Attack;
+            TargetObj.GetComponent<Enemy>().TakeDamage(50);
+            Quaternion targetRot = Quaternion.LookRotation(TargetObj.transform.position - transform.position);
+            transform.rotation = targetRot;
+            attDelay = 2.0f;
         }
     }
-    public bool PickUpItem()
+    public void PickUpItem()
     {
-        if (TargetItem != null && (transform.position - TargetItem.transform.position).magnitude < PickUpRange)
-        {
-            Debug.Log("destroy!");
-            GlobalValue.AddItem(TargetItem.GetComponent<ItemCtrl>().item);
-            Destroy(TargetItem);
-            if (InventoryMgr.inst != null)
-                InventoryMgr.inst.Refreshslot();
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        Debug.Log(TargetObj.GetComponent<ItemCtrl>().item.itemName);
+        GlobalValue.AddItem(TargetObj.GetComponent<ItemCtrl>().item);
+        Destroy(TargetObj);
+        if (InventoryMgr.inst != null)
+            InventoryMgr.inst.Refreshslot();
     }
 
     public void UseSkill(int index)
@@ -216,7 +202,7 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
     }
     public void ChangeSkill(ActiveSkill newSkill, int index)
     {
-        if (newSkill != null && 0 <= index && index < GlobalValue.PlayerSkill.Length)
+        if (newSkill != null && 0 < newSkill.skillPoint && 0 <= index && index < GlobalValue.PlayerSkill.Length)
             GlobalValue.PlayerSkill[index] = newSkill;
     }
 

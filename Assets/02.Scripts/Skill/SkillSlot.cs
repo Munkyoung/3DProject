@@ -29,13 +29,13 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             SkPointUpBtn.onClick.AddListener(() =>
             {
                 RootSkill.CheckSkillPoint(GlobalValue.SkillTree, SlotSkill.skillName, 1);
-                RefreshSlot();
+                SetSlot();
             });
         if (SkPointDownBtn != null)
             SkPointDownBtn.onClick.AddListener(() =>
             {
-                SlotSkill.PointUpDown(-1);
-                RefreshSlot();
+                RootSkill.CheckSkillPoint(GlobalValue.SkillTree, SlotSkill.skillName, -1);
+                SetSlot();
             });
     }
 
@@ -54,18 +54,19 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
     }
 
-    public void RefreshSlot(Skill skill = null)
+    public void SetSlot(Skill skill = null)
     {
         if (skill != null)
             this.SlotSkill = skill;
+
         IconImage.sprite = Resources.Load<Sprite>(SlotSkill.spriteName);
-        if (skill.skillPoint <= 0)
+        if (SlotSkill.skillPoint <= 0)
         {
-            IconImage.color = new Color(100, 100, 100);
+            IconImage.color = new Color32(100, 100, 100, 255);
         }
         else
         {
-            IconImage.color = new Color(255, 255, 255);
+            IconImage.color = new Color32(255, 255, 255, 255);
         }
         SkillPointText.text = SlotSkill.skillPoint + "/" + SlotSkill.maxSkillPoint.ToString();
     }

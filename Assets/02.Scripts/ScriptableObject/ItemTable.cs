@@ -31,7 +31,6 @@ public class ItemTable : MonoBehaviour
         //return할 item을 담을 SOitem형 변수
         SOItem item = test[test.Count - 1].item;
 
-
         foreach (Element element in ItemTabes)
         {
             total += element.Weight;
@@ -42,6 +41,7 @@ public class ItemTable : MonoBehaviour
         {
             if (element.Weight <= Pivot)
             {
+
                 Pivot -= element.Weight;
             }
             else

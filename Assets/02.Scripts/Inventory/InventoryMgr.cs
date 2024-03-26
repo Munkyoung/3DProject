@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public enum InventoryTabType
 {
-    equipment,
-    consumable,
-    Other
+    Tab_Equip,
+    Tab_Consum,
+    Tab_Etc
 }
 
 public class InventoryMgr : MonoBehaviour
@@ -34,8 +34,6 @@ public class InventoryMgr : MonoBehaviour
     //==================================//
 
 
-
-
     //==================================//
     //------------Inventory-------------//
     [Header("------------Inventory------------")]
@@ -56,9 +54,9 @@ public class InventoryMgr : MonoBehaviour
     [Header("------------TabButton------------")]
     public Button EquipmentTab;
     public Button ConsumTab;
-    public Button OtherTab;
-    InventoryTabType TabType = InventoryTabType.equipment;
-    public InventoryTabType tabType
+    public Button EtcTab;
+    InventoryTabType TabType = InventoryTabType.Tab_Consum;
+    InventoryTabType tabType
     {
         get => TabType;
         set
@@ -67,12 +65,12 @@ public class InventoryMgr : MonoBehaviour
             Refreshslot();
         }
     }
-
     //------------TabType-------------//
     //==================================//
 
     //DragDrop
-    public bool IsDrop = false;
+    //public bool IsDrop = false;
+    [HideInInspector]
     public SOEquipment OnDragItem = null;
 
     //ΩÃ±€≈Ê ∆–≈œ
@@ -96,26 +94,20 @@ public class InventoryMgr : MonoBehaviour
         if (EquipmentTab != null)
             EquipmentTab.onClick.AddListener(() =>
             {
-                tabType = InventoryTabType.equipment;
+                tabType = InventoryTabType.Tab_Equip;
             });
         if (ConsumTab != null)
             ConsumTab.onClick.AddListener(() =>
             {
-                tabType = InventoryTabType.consumable;
+                tabType = InventoryTabType.Tab_Consum;
             });
-        if (OtherTab != null)
-            OtherTab.onClick.AddListener(() =>
+        if (EtcTab != null)
+            EtcTab.onClick.AddListener(() =>
             {
-                tabType = InventoryTabType.Other;
+                tabType = InventoryTabType.Tab_Etc;
             });
         //TabButton √≥∏Æ
         Refreshslot();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     //ΩΩ∑‘ø° æ∆¿Ã≈€ ≥÷±‚
@@ -129,7 +121,7 @@ public class InventoryMgr : MonoBehaviour
         }
         switch (TabType)
         {
-            case InventoryTabType.equipment:
+            case InventoryTabType.Tab_Equip:
                 {
                     for (int i = 0; i < GlobalValue.g_EquipItemList.Count; i++)
                     {
@@ -137,7 +129,7 @@ public class InventoryMgr : MonoBehaviour
                     }
                 }
                 break;
-            case InventoryTabType.consumable:
+            case InventoryTabType.Tab_Consum:
                 {
                     for (int i = 0; i < GlobalValue.g_ConsumItemList.Count; i++)
                     {
@@ -145,7 +137,7 @@ public class InventoryMgr : MonoBehaviour
                     }
                 }
                 break;
-            case InventoryTabType.Other:
+            case InventoryTabType.Tab_Etc:
                 {
                     for (int i = 0; i < GlobalValue.g_EtcItemList.Count; i++)
                     {
@@ -162,7 +154,7 @@ public class InventoryMgr : MonoBehaviour
 
     public SOEquipment WearEquip(EquipType type)
     {
-        if (OnDragItem.equipType == type)
+        if (OnDragItem.EquipType == type)
         {
             GlobalValue.g_EquipItemList.Remove(OnDragItem);
             return OnDragItem;
@@ -172,6 +164,10 @@ public class InventoryMgr : MonoBehaviour
             return null;
         }
     }
+    // Update is called once per frame
+    void Update()
+    {
 
+    }
 
 }

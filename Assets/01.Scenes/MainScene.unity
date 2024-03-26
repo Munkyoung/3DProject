@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipItem: {fileID: 0}
   dragItem: {fileID: 0}
-  equipType: 3
+  EquipType: 0
   SlotImage: {fileID: 188591410}
 --- !u!1 &239367047
 GameObject:
@@ -3993,7 +3993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipItem: {fileID: 0}
   dragItem: {fileID: 0}
-  equipType: 1
+  EquipType: 0
   SlotImage: {fileID: 593264062}
 --- !u!1 &434587152
 GameObject:
@@ -8968,7 +8968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipItem: {fileID: 0}
   dragItem: {fileID: 0}
-  equipType: 2
+  EquipType: 0
   SlotImage: {fileID: 218565913}
 --- !u!1 &1094879691
 GameObject:
@@ -11725,7 +11725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipItem: {fileID: 0}
   dragItem: {fileID: 0}
-  equipType: 0
+  EquipType: 0
   SlotImage: {fileID: 595492162}
 --- !u!1 &1490573772
 GameObject:
@@ -13453,7 +13453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipItem: {fileID: 0}
   dragItem: {fileID: 0}
-  equipType: 0
+  EquipType: 0
   SlotImage: {fileID: 1294433109}
 --- !u!1 &1640394553
 GameObject:
@@ -16879,8 +16879,7 @@ MonoBehaviour:
   InventoryPanel: {fileID: 676075797}
   EquipmentTab: {fileID: 1306455150}
   ConsumTab: {fileID: 899622887}
-  OtherTab: {fileID: 2071825320}
-  IsDrop: 0
+  EtcTab: {fileID: 2071825320}
   OnDragItem: {fileID: 0}
 --- !u!1 &1994488149
 GameObject:
@@ -17328,7 +17327,7 @@ GameObject:
   - component: {fileID: 2071825321}
   - component: {fileID: 2071825320}
   m_Layer: 5
-  m_Name: Tab_OtherBtn
+  m_Name: Tab_EtcBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17528,7 +17527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipItem: {fileID: 0}
   dragItem: {fileID: 0}
-  equipType: 4
+  EquipType: 0
   SlotImage: {fileID: 2146251918}
 --- !u!1 &2077611111
 GameObject:
@@ -18392,7 +18391,7 @@ GameObject:
   - component: {fileID: 8991426176281984461}
   m_Layer: 13
   m_Name: sword
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
