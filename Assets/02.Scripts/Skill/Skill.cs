@@ -1,5 +1,7 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Skill
 {
@@ -61,6 +63,9 @@ public class PassiveSkill : Skill
 public class ActiveSkill : Skill
 {
     float CoolTime;
+    bool IsCooling = false;
+
+    public bool isCooling { get => IsCooling; set => IsCooling = value; }
     protected float cooltime { get => CoolTime; set => CoolTime = value; }
 
     protected ActiveSkill()
@@ -78,12 +83,22 @@ public class ActiveSkill : Skill
     {
         Debug.Log("부모 스킬 사용");
     }
-
+    public IEnumerator SkillCoolTime(Image image)
+    {
+        IsCooling = true;
+        Debug.Log(cooltime);
+        float cool = 0.0f;
+        while (cool < cooltime)
+        {
+            cool += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+            image.fillAmount = cool / cooltime;
+        }
+        IsCooling = false;
+        Debug.Log("끝");
+    }
 }
-public class SkillList
-{
 
-}
 public class ActiveSkill_Swing : ActiveSkill
 {
     public ActiveSkill_Swing()
@@ -121,8 +136,9 @@ public class ActiveSkill_Rush : ActiveSkill
         base.skillInfo = "전방으로 스킬을 사용합니다";
         base.skillPoint = 0;
         base.maxSkillPoint = 5;
-        cooltime = 10.0f;
+        cooltime = 5.0f;
     }
+
 
     public override void UseActiveSkill(GameObject User, Transform Target)
     {
@@ -149,8 +165,9 @@ public class ActiveSkill_Heal : ActiveSkill
         base.skillInfo = "체력을 100회복합니다";
         base.skillPoint = 0;
         base.maxSkillPoint = 5;
-        cooltime = 15.0f;
+        cooltime = 10.0f;
     }
+
     public override void UseActiveSkill(GameObject User, Transform Target)
     {
         if (skillPoint > 0)

@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
 {
     float MaxHp = 300.0f;
-    float Hp;
+    float Hp = 300.0f;
     public float hp
     {
         get { return Hp; }
@@ -55,6 +56,10 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
     RaycastHit hit;
 
 
+    public Transform MiniMapCamera;
+    float MiniMapCamOffset = 10.0f;
+
+    public Image[] SkPanelImages;
 
     //WayPointMark관련 변수
     [Header("------WayPoint------")]
@@ -72,9 +77,10 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            PickUpItem();
+            hp -= 30.0f;
+            Debug.Log(hp);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -91,12 +97,7 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
         if (Input.GetKeyDown(KeyCode.R))
         {
             UseSkill(3);
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            SOItem DropItem = this.GetComponent<ItemTable>().GetItem();
 
-            GlobalValue.AddItem(DropItem);
         }
 
         if (GameMgr.inst.IsAnyPanelOff())
@@ -147,6 +148,7 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
             }
 
         }
+        MiniMapCamera.position = this.transform.position + Vector3.up * MiniMapCamOffset;
 
         if (0.0f < attDelay)
             attDelay -= Time.deltaTime;
@@ -190,10 +192,14 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
 
     public void UseSkill(int index)
     {
-        if (GlobalValue.PlayerSkill[index] != null)
+        ActiveSkill skill = GlobalValue.PlayerSkill[index];
+        if (skill != null)
         {
-            Debug.Log(GlobalValue.PlayerSkill[index].skillName);
-            GlobalValue.PlayerSkill[index].UseActiveSkill(this.gameObject, this.transform);
+            if (skill.isCooling == false)
+            {
+                skill.UseActiveSkill(this.gameObject, transform);
+                StartCoroutine(skill.SkillCoolTime(SkPanelImages[index]));
+            }
         }
         else
         {
