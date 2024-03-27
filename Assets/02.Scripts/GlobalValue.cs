@@ -67,7 +67,7 @@ public static class GlobalValue
     public static int layerMask = (1 << LayerMask.NameToLayer("Item")) + (1 << LayerMask.NameToLayer("Ground")) + (1 << LayerMask.NameToLayer("Enemy"));
 
     //플레이어의 스킬 트리
-    public static SkillNode SkillTree = RootSkill.TestMakeRoot();
+    public static SkillNode SkillTree = RootSkill.CreateRoot();
 
     //플레이어가 장착하고있는 스킬
     public static ActiveSkill[] PlayerSkill = new ActiveSkill[4];

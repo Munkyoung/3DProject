@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    Skill SlotSkill;
+    SkillNode SkNode;
 
     public Image IconImage;
     public Text SkillPointText;
@@ -28,14 +28,14 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (SkPointUpBtn != null)
             SkPointUpBtn.onClick.AddListener(() =>
             {
-                RootSkill.CheckSkillPoint(GlobalValue.SkillTree, SlotSkill.skillName, 1);
-                SetSlot();
+                SkNode.ChangeSkillPoint(1);
+                RefreshUI();
             });
         if (SkPointDownBtn != null)
             SkPointDownBtn.onClick.AddListener(() =>
             {
-                RootSkill.CheckSkillPoint(GlobalValue.SkillTree, SlotSkill.skillName, -1);
-                SetSlot();
+                SkNode.ChangeSkillPoint(-1);
+                RefreshUI();
             });
     }
 
@@ -48,28 +48,34 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 ShowInfoTimer -= Time.deltaTime;
             else
             {
-                SkillMgr.inst.ShowSkillInfoOnOff(isMouseOn, SlotSkill);
+                SkillMgr.inst.ShowSkillInfoOnOff(isMouseOn, SkNode);
                 isMouseOn = false;
             }
         }
     }
-
-    public void SetSlot(Skill skill = null)
+    void RefreshUI()
     {
-        if (skill != null)
-            this.SlotSkill = skill;
-
-        IconImage.sprite = Resources.Load<Sprite>(SlotSkill.spriteName);
-        if (SlotSkill.skillPoint <= 0)
+        IconImage.sprite = Resources.Load<Sprite>(SkNode.skill.spriteName);
+        if (SkNode.skill.skillPoint <= 0)
         {
             IconImage.color = new Color32(100, 100, 100, 255);
+            this.gameObject.GetComponent<Image>().raycastTarget = false;
         }
         else
         {
             IconImage.color = new Color32(255, 255, 255, 255);
+            this.gameObject.GetComponent<Image>().raycastTarget = true;
         }
-        SkillPointText.text = SlotSkill.skillPoint + "/" + SlotSkill.maxSkillPoint.ToString();
+
+        SkillPointText.text = SkNode.skill.skillPoint + "/" + SkNode.skill.maxSkillPoint;
     }
+
+    public void SetNode(SkillNode node)
+    {
+        SkNode = node;
+        RefreshUI();
+    }
+
 
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -91,13 +97,13 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnBeginDrag(PointerEventData eventData)
     {
         startPos = transform.position;
-        GameMgr.inst.OnDragSkill = SlotSkill;
+        GameMgr.inst.OnDragNode = SkNode;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         IconImage.transform.position = startPos;
-        GameMgr.inst.OnDragSkill = null;
+        GameMgr.inst.OnDragNode = null;
     }
 
 

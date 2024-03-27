@@ -21,10 +21,10 @@ public class SkillPanel : MonoBehaviour, IDropHandler
 
     public void SetSkillPanel()
     {
-        if (GameMgr.inst.OnDragSkill != null && 0 < GameMgr.inst.OnDragSkill.skillPoint)
+        if (GameMgr.inst.OnDragNode != null && 0 < GameMgr.inst.OnDragNode.skill.skillPoint)
         {
-            Debug.Log(GameMgr.inst.OnDragSkill.skillName);
-            Skill = GameMgr.inst.OnDragSkill;
+            Debug.Log(GameMgr.inst.OnDragNode.skill.skillName);
+            Skill = GameMgr.inst.OnDragNode.skill;
             GlobalValue.PlayerSkill[SlotIndex] = Skill as ActiveSkill;
             Refresh();
             Debug.Log("¼Â");

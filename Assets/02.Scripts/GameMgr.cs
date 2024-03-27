@@ -9,7 +9,8 @@ public class GameMgr : MonoBehaviour
     public GameObject Inventory;
     public GameObject SkillTree;
 
-    public Skill OnDragSkill;
+    public SkillNode OnDragNode;
+
     public SkillPanel[] PlayerSkill = new SkillPanel[4];
 
     public static GameMgr inst;

@@ -28,15 +28,13 @@ public abstract class Skill
     }
 
 
-    public bool PointUpDown(int value)
+    public void PointUpDown(int value)
     {
         int skPoint = skillPoint + value;
         if (0 <= skPoint && skPoint <= MaxSkillPoint)
         {
             SkillPoint = skPoint;
-            return true;
         }
-        return false;
     }
 
     public string GetSkPoint()
