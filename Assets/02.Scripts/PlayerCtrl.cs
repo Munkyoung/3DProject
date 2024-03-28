@@ -25,7 +25,8 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
         Idle = 0,
         Run,
         Attack,
-        PickUp
+        PickUp,
+        Die
     }
     AnimStates AnimState = AnimStates.Idle;
 
@@ -66,6 +67,8 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
     public GameObject WayPointMark = null;
     public Animator WpMarkAnimator = null;
 
+    public GameObject SwingSkillObj;
+
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +76,8 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
         Application.targetFrameRate = 60;
         TargetVec = transform.position;
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -104,6 +109,7 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
         {
             if (Input.GetMouseButtonDown(1))
             {
+
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, GlobalValue.layerMask))
                 {
@@ -192,12 +198,19 @@ public class PlayerCtrl : MonoBehaviour, ITakeDamagealbe
 
     public void UseSkill(int index)
     {
+        Vector3 Pos = Vector3.zero;
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            Pos = new Vector3(hit.point.x, 0, hit.point.z);
+        }
+
         ActiveSkill skill = GlobalValue.PlayerSkill[index];
         if (skill != null)
         {
             if (skill.isCooling == false)
             {
-                skill.UseActiveSkill(this.gameObject, transform);
+                skill.UseActiveSkill(this.gameObject, Pos);
                 StartCoroutine(skill.SkillCoolTime(SkPanelImages[index]));
             }
         }

@@ -79,7 +79,7 @@ public class ActiveSkill : Skill
         this.cooltime = cooltime;
     }
 
-    public virtual void UseActiveSkill(GameObject User, Transform Target)
+    public virtual void UseActiveSkill(GameObject User, Vector3 pos)
     {
         Debug.Log("부모 스킬 사용");
     }
@@ -103,22 +103,30 @@ public class ActiveSkill_Swing : ActiveSkill
 {
     public ActiveSkill_Swing()
     {
-        base.skillName = "베기";
+        base.skillName = "범위 공격";
         base.spriteName = "Skill_Icon/Bash";
         base.skillPoint = 0;
         base.maxSkillPoint = 5;
-        base.skillInfo = $"SkillPoint : {skillPoint} 전방으로 스킬을 사용합니다";
+        base.skillInfo = $"범위 공격";
         base.value = 100;
-        cooltime = 7.0f;
+        cooltime = 3.0f;
     }
 
-    public override void UseActiveSkill(GameObject User, Transform Target)
+    public override void UseActiveSkill(GameObject User, Vector3 Pos)
     {
         if (skillPoint > 0)
         {
-            base.UseActiveSkill(User, Target);
             Debug.Log(skillName);
-            Debug.Log(value);
+            GameObject sword = User.GetComponent<PlayerCtrl>().SwingSkillObj;
+            sword.gameObject.SetActive(true);
+            sword.transform.position = Pos;
+            Collider[] colls = Physics.OverlapSphere(Pos, 10.0f);
+            foreach (var obj in colls)
+            {
+                ITakeDamagealbe damage = obj.gameObject.GetComponent<ITakeDamagealbe>();
+                if (damage != null)
+                    damage.TakeDamage(100.0f);
+            }
         }
         else
         {
@@ -131,20 +139,20 @@ public class ActiveSkill_Rush : ActiveSkill
 {
     public ActiveSkill_Rush()
     {
-        base.skillName = "돌진";
+        base.skillName = "공격력 버프";
         base.spriteName = "Skill_Icon/Rush";
-        base.skillInfo = "전방으로 스킬을 사용합니다";
+        base.skillInfo = "공격력이 증가합니다";
         base.skillPoint = 0;
         base.maxSkillPoint = 5;
         cooltime = 5.0f;
     }
 
 
-    public override void UseActiveSkill(GameObject User, Transform Target)
+    public override void UseActiveSkill(GameObject user, Vector3 pos)
     {
         if (skillPoint > 0)
         {
-            base.UseActiveSkill(User, Target);
+            base.UseActiveSkill(user, pos);
             Debug.Log(skillName);
             Debug.Log(value);
         }
@@ -168,12 +176,12 @@ public class ActiveSkill_Heal : ActiveSkill
         cooltime = 10.0f;
     }
 
-    public override void UseActiveSkill(GameObject User, Transform Target)
+    public override void UseActiveSkill(GameObject user, Vector3 pos)
     {
         if (skillPoint > 0)
         {
-            base.UseActiveSkill(User, Target);
-            User.GetComponent<PlayerCtrl>().hp += 100;
+            base.UseActiveSkill(user, pos);
+            user.GetComponent<PlayerCtrl>().hp += 100;
             Debug.Log("힐");
         }
         else

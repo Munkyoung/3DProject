@@ -66,18 +66,6 @@ public class Enemy : MonoBehaviour, ITakeDamagealbe
             BehaviourRoot.Evaluate();
         }
     }
-
-
-    /*  private void OnCollisionEnter(Collision coll)
-      {
-          if (coll.gameObject.tag == "Weapon")
-          {
-              TakeDamage(GlobalValue.curAtt);
-          }
-      }
-  */
-
-
     void RefreshHp()
     {
         HpBar.fillAmount = hp / MaxHp;
@@ -103,10 +91,10 @@ public class Enemy : MonoBehaviour, ITakeDamagealbe
     public void TakeDamage(float value)
     {
         Debug.Log("TakeDamage");
-        if (hp < 0.0f) return;
+        if (hp <= 0.0f) return;
 
         hp -= value;
-        if (hp < 0.0f)
+        if (hp <= 0.0f)
         {
             EnemyDie();
         }

@@ -55,7 +55,7 @@ public class InventoryMgr : MonoBehaviour
     public Button EquipmentTab;
     public Button ConsumTab;
     public Button EtcTab;
-    InventoryTabType TabType = InventoryTabType.Tab_Consum;
+    InventoryTabType TabType = InventoryTabType.Tab_Equip;
     InventoryTabType tabType
     {
         get => TabType;
@@ -107,13 +107,14 @@ public class InventoryMgr : MonoBehaviour
                 tabType = InventoryTabType.Tab_Etc;
             });
         //TabButton 처리
-        Refreshslot();
+        //Refreshslot();
     }
 
     //슬롯에 아이템 넣기
     //아이템 배열에 
     public void Refreshslot()
     {
+
         Debug.Log(TabType);
         for (int i = 0; i < ItemArr.Length; i++)
         {

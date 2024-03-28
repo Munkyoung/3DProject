@@ -19,7 +19,7 @@ MonoBehaviour:
   Prefab: {fileID: 6433594893858579004, guid: d76989d7c87ac6a438abe6c312920989, type: 3}
   Count: 1
   MaxCount: 1
-  equipType: 4
+  EquipType: 0
   Offense: 0
   Defense: 0
   Speed: 0

@@ -4,27 +4,9 @@ using UnityEngine;
 
 public class SwordCtrl : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public GameObject obj;
+    public void EndSwing()
     {
-        if (other.gameObject.tag == "Enemy")
-        {
-            ITakeDamagealbe damage = other.GetComponent<ITakeDamagealbe>();
-            if (damage != null)
-            {
-                damage.TakeDamage(GlobalValue.curAtt);
-            }
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        obj.SetActive(false);
     }
 }
